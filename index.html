@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tomjo — つくったもの</title>
+  <meta name="description" content="慶應の学生 tomjo のポートフォリオ。受付管理SaaS・人材育成AIから、3Dキャラ家計簿・iOSアプリまで。“あったらいいな”を形にしています。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ▼ 提出要件：この文言を冒頭に出す -->
+  <div class="report-banner">
+    このサイトは <b>2026年 実践のためのWebプログラミング</b> のレポート課題です。
+  </div>
+
+  <nav class="nav">
+    <a class="nav__brand" href="#top">tomjo<span style="color:var(--accent)">.</span></a>
+    <div class="nav__links">
+      <a href="#products">プロダクト</a>
+      <a href="#works">つくったもの</a>
+      <a href="making-of-maneko.html">制作記</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/tomjo" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <div class="wrap hero__inner">
+      <div>
+        <h1 class="hero__title">“あったらいいな” を、<br /><span class="hl">動くもの</span>にする。</h1>
+        <p class="hero__lead">
+          慶應義塾大学の学生です。現場で本当に使われる受付・育成のSaaSから、
+          3Dキャラと暮らす家計簿、毎日使う iOS アプリまで。企画から実装・運用まで一人で作っています。
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#products">🚀 プロダクトを見る</a>
+          <a class="btn btn--ghost" href="making-of-maneko.html">🐱 マネコ家計簿の制作記</a>
+        </div>
+      </div>
+      <div class="hero__art">
+        <span class="emoji">🐱</span>
+        <span class="tag">SaaS · Web · iOS</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ PRODUCTS（宣伝・本命） ============ -->
+  <section id="products">
+    <div class="wrap">
+      <p class="eyebrow">Products</p>
+      <h2 class="section-title">プロダクト</h2>
+      <p class="section-lead">実際に現場で動いている、本気のSaaSです。導入・お試しのご相談はお気軽にどうぞ。</p>
+
+      <div class="products">
+
+        <!-- welcomy -->
+        <article class="product">
+          <div class="product__visual pv-welcomy">
+            <span class="live">本番稼働中</span>
+            <span class="emoji">🛎️</span>
+          </div>
+          <div class="product__body">
+            <p class="product__kicker">受付管理 SaaS</p>
+            <h3 class="product__title">welcomy</h3>
+            <p class="product__tagline">受付の“雑務”をなくし、人が人と向き合う時間を取り戻す。</p>
+            <p class="product__desc">
+              受付・予約・席（リソース）割当・顧客台帳・連絡・分析をひとつに束ねる受付管理SaaS。
+              「コア＋モジュール」構造と用語のラベル可変（席→マシン/ベッド、生徒→会員）で、
+              学習塾・ジム・整体・サロン・コワーキングを<strong>1つの土台で横断</strong>。実際に塾の校舎で運用しています。
+            </p>
+            <div class="product__features">
+              <span class="feat">ワンタップ受付・席自動おすすめ</span>
+              <span class="feat">予約×席マップ（ダブルブッキング防止）</span>
+              <span class="feat">CSV一括取込</span>
+              <span class="feat">混雑・遅刻・顧客分析</span>
+              <span class="feat">モジュールON/OFF</span>
+            </div>
+            <div class="product__foot">
+              <div class="product__tech">
+                <span class="chip">Next.js</span><span class="chip">TypeScript</span>
+                <span class="chip">Supabase</span><span class="chip">マルチテナント(RLS)</span>
+              </div>
+              <div class="product__cta">
+                <a class="btn btn--primary btn--sm" href="mailto:tomjoepatience@gmail.com?subject=welcomy%20を使ってみたい">使ってみませんか？</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- nurture -->
+        <article class="product">
+          <div class="product__visual pv-nurture">
+            <span class="live">本番稼働中</span>
+            <span class="emoji">🌱</span>
+          </div>
+          <div class="product__body">
+            <p class="product__kicker">人材育成 × AI</p>
+            <h3 class="product__title">Nurture</h3>
+            <p class="product__tagline">アルバイト・新人の育成を、勘から仕組みへ。</p>
+            <p class="product__desc">
+              塾・店舗スタッフの育成を管理するWebアプリ。評価シートへの日々の記録から、
+              <strong>AIが問題点・育成方針・接し方のコツ</strong>まで提示。推移グラフ、自己評価とのズレ、相性マッチング、
+              毎月の育成レポート自動生成。「褒めるところは褒め、課題はしっかり見つける」を両立します。
+            </p>
+            <div class="product__features">
+              <span class="feat">評価シート＋日々の振り返り</span>
+              <span class="feat">AI育成分析・月次レポート</span>
+              <span class="feat">自己認識のズレを可視化</span>
+              <span class="feat">相性マッチング</span>
+              <span class="feat">会社→校舎の階層管理</span>
+            </div>
+            <div class="product__foot">
+              <div class="product__tech">
+                <span class="chip">Next.js</span><span class="chip">TypeScript</span>
+                <span class="chip">Supabase</span><span class="chip">Claude API</span>
+              </div>
+              <div class="product__cta">
+                <a class="btn btn--ghost btn--sm" href="https://nurture-lime.vercel.app" target="_blank" rel="noopener">サイト →</a>
+                <a class="btn btn--primary btn--sm" href="mailto:tomjoepatience@gmail.com?subject=Nurture%20を使ってみたい">使ってみませんか？</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKS ============ -->
+  <section id="works" class="section-alt">
+    <div class="wrap">
+      <p class="eyebrow">Works</p>
+      <h2 class="section-title">つくったもの</h2>
+      <p class="section-lead">「自分が毎日使いたい」から生まれた個人開発。★ が今回のレポート対象・本命です。</p>
+
+      <div class="filters" role="tablist">
+        <button class="filter is-active" data-filter="all">すべて</button>
+        <button class="filter" data-filter="web">🌐 Web</button>
+        <button class="filter" data-filter="ios">📱 iOS</button>
+      </div>
+
+      <div class="grid" id="grid">
+
+        <!-- ★ マネコ家計簿 -->
+        <article class="card is-star" data-cat="web">
+          <div class="card__thumb t-maneko">🐱
+            <span class="badge badge--web">WEB</span>
+            <span class="star">★ 本命</span>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">マネコ家計簿</h3>
+            <p class="card__desc">3Dキャラ「マネコ」が買ったものに反応し、叱らずにアドバイスする家計簿。こども／おとなの2モード・PWA対応。</p>
+            <div class="chips">
+              <span class="chip">TypeScript</span><span class="chip">three.js</span>
+              <span class="chip">Express</span><span class="chip">PostgreSQL</span><span class="chip">PWA</span>
+            </div>
+            <div class="card__links">
+              <a href="making-of-maneko.html">制作記 →</a>
+              <a class="muted" href="#" target="_blank" rel="noopener">デモ</a>
+              <a class="muted" href="https://github.com/tomjo/kakeibo" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- タビカケ -->
+        <article class="card" data-cat="ios">
+          <div class="card__thumb t-tabikake">✈️<span class="badge badge--ios">iOS</span></div>
+          <div class="card__body">
+            <h3 class="card__title">タビカケ</h3>
+            <p class="card__desc">1支出 = 1ピン（写真＋場所＋金額）。旅行やデート単位で「何にいくら使ったか」を写真つきで振り返る思い出×家計簿。TestFlight配信済み。</p>
+            <div class="chips">
+              <span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">SQLite</span><span class="chip">react-native-maps</span>
+            </div>
+            <div class="card__links"><a class="muted" href="#" target="_blank" rel="noopener">TestFlight</a><a class="muted" href="#" target="_blank" rel="noopener">GitHub</a></div>
+          </div>
+        </article>
+
+        <!-- 起きて -->
+        <article class="card" data-cat="ios">
+          <div class="card__thumb t-okite">⏰<span class="badge badge--ios">iOS</span></div>
+          <div class="card__body">
+            <h3 class="card__title">起きて</h3>
+            <p class="card__desc">マナーモード・集中モードを貫通して鳴る本物の目覚まし。iOS 26 の AlarmKit を使用。他アプリからURLスキームで一括セットできる連携口つき。</p>
+            <div class="chips">
+              <span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">AlarmKit</span>
+            </div>
+            <div class="card__links"><a class="muted" href="#" target="_blank" rel="noopener">紹介</a><a class="muted" href="#" target="_blank" rel="noopener">GitHub</a></div>
+          </div>
+        </article>
+
+        <!-- 行ってきます -->
+        <article class="card" data-cat="ios">
+          <div class="card__thumb t-hibi">🚪<span class="badge badge--ios">iOS</span></div>
+          <div class="card__body">
+            <h3 class="card__title">いってきます</h3>
+            <p class="card__desc">家を出る前の忘れ物を防ぐアプリ。持ち物と出発時刻を声で入力し、予定・天気・曜日から「今日の持ち物」を自動で組み立てて通知。</p>
+            <div class="chips">
+              <span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">ローカル通知</span><span class="chip">カレンダー連携</span>
+            </div>
+            <div class="card__links"><a class="muted" href="#" target="_blank" rel="noopener">TestFlight</a><a class="muted" href="#" target="_blank" rel="noopener">GitHub</a></div>
+          </div>
+        </article>
+
+        <!-- Hibi -->
+        <article class="card" data-cat="ios">
+          <div class="card__thumb t-toushi">📷<span class="badge badge--ios">iOS</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Hibi（日々）</h3>
+            <p class="card__desc">似た写真からベストショットを自動抽出し、残りを整理して容量を節約。判定はすべて端末内で完結（オンデバイスAI・写真は外に出ない）。</p>
+            <div class="chips">
+              <span class="chip">React Native</span><span class="chip">TFLite</span><span class="chip">perceptual hash</span><span class="chip">顔検出</span>
+            </div>
+            <div class="card__links"><a class="muted" href="#" target="_blank" rel="noopener">紹介</a><a class="muted" href="#" target="_blank" rel="noopener">GitHub</a></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h2 class="section-title">tomjo について</h2>
+      <div class="about">
+        <div>
+          <p>慶應義塾大学の学生です。Python / JavaScript / TypeScript を中心に、
+          「自分や現場が毎日使いたくなるもの」を、企画から実装・運用まで一人で作っています。</p>
+          <p>受付現場の原体験から生まれた受付管理SaaS <strong>welcomy</strong> は実際の校舎で稼働中。
+          作って終わりではなく、デプロイ・運用して使い続け、改善し続けることを大事にしています。</p>
+          <p class="fill" style="color:var(--ink-soft)"><b style="color:var(--accent-ink)">✍️ ここは自己紹介を自分の言葉で</b>
+          なぜ作るのが好きか／どんなものに興味があるか、を後で追記予定。</p>
+        </div>
+        <div>
+          <p class="stack-title">よく使う技術</p>
+          <div class="stack">
+            <span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Python</span>
+            <span class="chip">Node.js / Express</span><span class="chip">Next.js</span><span class="chip">React Native / Expo</span>
+            <span class="chip">PostgreSQL</span><span class="chip">Supabase</span><span class="chip">three.js</span>
+            <span class="chip">Claude API</span>
+          </div>
+          <p class="stack-title" style="margin-top:28px">リンク・お問い合わせ</p>
+          <div class="stack">
+            <a class="chip" href="https://github.com/tomjo" target="_blank" rel="noopener" style="text-decoration:none">GitHub</a>
+            <a class="chip" href="mailto:tomjoepatience@gmail.com" style="text-decoration:none">Mail</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© 2026 tomjo — 2026年 実践のためのWebプログラミング レポート課題<br />
+      <a href="making-of-maneko.html">マネコ家計簿の制作記を読む →</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // 作品フィルタ（Web / iOS）
+    const filters = document.querySelectorAll('.filter');
+    const cards = document.querySelectorAll('#grid .card');
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const f = btn.dataset.filter;
+      cards.forEach(c => {
+        const show = f === 'all' || c.dataset.cat === f;
+        c.classList.toggle('is-hidden', !show);
+      });
+    }));
+  </script>
+</body>
+</html>
