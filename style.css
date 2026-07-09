@@ -270,3 +270,87 @@ h2.section-title { font-size: clamp(24px, 4vw, 34px); margin: 0 0 8px; letter-sp
   color: var(--accent-ink); font-size: 14px;
 }
 .fill b { display: block; margin-bottom: 2px; }
+
+/* 記事の導入文（デク）と引用（プルクオート） */
+.article__dek {
+  font-size: 17px; color: var(--ink-soft); margin: 6px 0 14px; max-width: 56ch; line-height: 1.8;
+}
+.pull {
+  font-size: clamp(20px, 3.4vw, 26px); font-weight: 800; color: var(--accent-ink);
+  text-align: center; padding: 22px 10px; margin: 32px 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+
+/* =========================================================
+   メディア（実画像 ＋ 絵文字フォールバック）
+   画像が assets/ に置かれると自動で画像表示に切り替わる。
+   ========================================================= */
+figure { margin: 0; }              /* figure の UA 既定マージンを消す（.article__hero 等は自前の margin が勝つ） */
+.media { position: relative; overflow: hidden; }
+.media__fallback { position: absolute; inset: 0; display: grid; place-items: center; }
+.media__img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0; z-index: 1;
+  transition: opacity .5s ease, transform .6s ease;
+}
+.media__img.is-loaded { opacity: 1; }
+/* バッジ類は画像より上に */
+.badge, .star, .live, .tag { z-index: 2; }
+/* カードホバーで画像をわずかにズーム */
+.card:hover .media__img { transform: scale(1.05); }
+/* ヒーローのケンバーンズ（画像が読み込まれた時のみ） */
+.hero__art .media__img.is-loaded { animation: kenburns 22s ease-in-out infinite alternate; }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.07); } }
+
+/* =========================================================
+   動き（スクロールリビール・ヒーロー入場・ナビ・フィルタ）
+   ========================================================= */
+/* スクロールで下からフェードイン */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ヒーロー入場（title/lead/CTA/art が順にフェードアップ） */
+.hero__title, .hero__lead, .hero__cta, .hero__art {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.hero__title { transition-delay: 0s; }
+.hero__lead  { transition-delay: .1s; }
+.hero__cta   { transition-delay: .2s; }
+.hero__art   { transition-delay: .3s; }
+body.is-ready .hero__title,
+body.is-ready .hero__lead,
+body.is-ready .hero__cta,
+body.is-ready .hero__art { opacity: 1; transform: none; }
+/* JS 無効時は初期非表示を解除（no-js を site.js が外すまでの保険） */
+.no-js .hero__title, .no-js .hero__lead, .no-js .hero__cta, .no-js .hero__art { opacity: 1; transform: none; }
+
+/* ナビ: スクロールで背景を濃く＋影 */
+.nav--scrolled {
+  background: color-mix(in srgb, var(--paper) 95%, transparent);
+  box-shadow: 0 1px 0 var(--line), 0 8px 24px rgba(35,32,28,.07);
+}
+/* ナビ: 現在地ハイライト（琥珀色＋下線） */
+.nav__links a.is-active { color: var(--accent-ink); }
+.nav__links a.is-active::after {
+  content: ""; display: block; height: 2px; margin-top: 3px;
+  background: var(--accent-ink); border-radius: 2px;
+}
+
+/* フィルタ切替時のポップイン */
+.grid--pop .card:not(.is-hidden) { animation: popin .45s both; }
+@keyframes popin {
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* モーション低減の希望を尊重 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .hero__title, .hero__lead, .hero__cta, .hero__art {
+    opacity: 1; transform: none; transition: none;
+  }
+  .hero__art .media__img.is-loaded { animation: none; }
+  .grid--pop .card:not(.is-hidden) { animation: none; }
+  .card:hover .media__img { transform: none; }
+}

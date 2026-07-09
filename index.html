@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="no-js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>tomjo — つくったもの</title>
   <meta name="description" content="慶應の学生 tomjo のポートフォリオ。受付管理SaaS・人材育成AIから、3Dキャラ家計簿・iOSアプリまで。“あったらいいな”を形にしています。" />
   <link rel="stylesheet" href="style.css" />
+  <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
 
@@ -39,28 +40,30 @@
           <a class="btn btn--ghost" href="making-of-maneko.html">🐱 マネコ家計簿の制作記</a>
         </div>
       </div>
-      <div class="hero__art">
-        <span class="emoji">🐱</span>
+      <figure class="hero__art media">
+        <div class="media__fallback"><span class="emoji">🐱</span></div>
+        <img class="media__img" src="assets/hero.jpg" alt="作業デスクと招き猫" loading="eager" />
         <span class="tag">SaaS · Web · iOS</span>
-      </div>
+      </figure>
     </div>
   </header>
 
   <!-- ============ PRODUCTS（宣伝・本命） ============ -->
   <section id="products">
     <div class="wrap">
-      <p class="eyebrow">Products</p>
-      <h2 class="section-title">プロダクト</h2>
-      <p class="section-lead">実際に現場で動いている、本気のSaaSです。導入・お試しのご相談はお気軽にどうぞ。</p>
+      <p class="eyebrow reveal">Products</p>
+      <h2 class="section-title reveal">プロダクト</h2>
+      <p class="section-lead reveal">実際に現場で動いている、本気のSaaSです。導入・お試しのご相談はお気軽にどうぞ。</p>
 
       <div class="products">
 
         <!-- welcomy -->
-        <article class="product">
-          <div class="product__visual pv-welcomy">
+        <article class="product reveal">
+          <figure class="product__visual pv-welcomy media">
+            <div class="media__fallback"><span class="emoji">🛎️</span></div>
+            <img class="media__img" src="assets/welcomy.jpg" alt="明るい受付カウンター" loading="lazy" />
             <span class="live">本番稼働中</span>
-            <span class="emoji">🛎️</span>
-          </div>
+          </figure>
           <div class="product__body">
             <p class="product__kicker">受付管理 SaaS</p>
             <h3 class="product__title">welcomy</h3>
@@ -90,11 +93,12 @@
         </article>
 
         <!-- nurture -->
-        <article class="product">
-          <div class="product__visual pv-nurture">
+        <article class="product reveal">
+          <figure class="product__visual pv-nurture media">
+            <div class="media__fallback"><span class="emoji">🌱</span></div>
+            <img class="media__img" src="assets/nurture.jpg" alt="デスクの上の新芽と成長ノート" loading="lazy" />
             <span class="live">本番稼働中</span>
-            <span class="emoji">🌱</span>
-          </div>
+          </figure>
           <div class="product__body">
             <p class="product__kicker">人材育成 × AI</p>
             <h3 class="product__title">Nurture</h3>
@@ -131,9 +135,9 @@
   <!-- ============ WORKS ============ -->
   <section id="works" class="section-alt">
     <div class="wrap">
-      <p class="eyebrow">Works</p>
-      <h2 class="section-title">つくったもの</h2>
-      <p class="section-lead">「自分が毎日使いたい」から生まれた個人開発。★ が今回のレポート対象・本命です。</p>
+      <p class="eyebrow reveal">Works</p>
+      <h2 class="section-title reveal">つくったもの</h2>
+      <p class="section-lead reveal">「自分が毎日使いたい」から生まれた個人開発。★ が今回のレポート対象・本命です。</p>
 
       <div class="filters" role="tablist">
         <button class="filter is-active" data-filter="all">すべて</button>
@@ -144,29 +148,35 @@
       <div class="grid" id="grid">
 
         <!-- ★ マネコ家計簿 -->
-        <article class="card is-star" data-cat="web">
-          <div class="card__thumb t-maneko">🐱
+        <article class="card is-star reveal" data-cat="web">
+          <figure class="card__thumb t-maneko media">
+            <div class="media__fallback">🐱</div>
+            <img class="media__img" src="assets/maneko.jpg" alt="3Dキャラのマネコと家計簿" loading="lazy" />
             <span class="badge badge--web">WEB</span>
             <span class="star">★ 本命</span>
-          </div>
+          </figure>
           <div class="card__body">
             <h3 class="card__title">マネコ家計簿</h3>
-            <p class="card__desc">3Dキャラ「マネコ」が買ったものに反応し、叱らずにアドバイスする家計簿。こども／おとなの2モード・PWA対応。</p>
+            <p class="card__desc">レシートを撮るだけで明細ごと自動ジャンル分け。招き猫キャラ「マネコ」と楽しむこどもモード＋実用のおとなモードで、世帯のお金をまるごと管理。PWA対応。</p>
             <div class="chips">
               <span class="chip">TypeScript</span><span class="chip">three.js</span>
               <span class="chip">Express</span><span class="chip">PostgreSQL</span><span class="chip">PWA</span>
             </div>
             <div class="card__links">
               <a href="making-of-maneko.html">制作記 →</a>
-              <a class="muted" href="#" target="_blank" rel="noopener">デモ</a>
+              <a class="muted" href="https://tabiwari-dacx.onrender.com" target="_blank" rel="noopener">デモ</a>
               <a class="muted" href="https://github.com/tomjo/kakeibo" target="_blank" rel="noopener">GitHub</a>
             </div>
           </div>
         </article>
 
         <!-- タビカケ -->
-        <article class="card" data-cat="ios">
-          <div class="card__thumb t-tabikake">✈️<span class="badge badge--ios">iOS</span></div>
+        <article class="card reveal" data-cat="ios">
+          <figure class="card__thumb t-tabikake media">
+            <div class="media__fallback">✈️</div>
+            <img class="media__img" src="assets/tabikake.jpg" alt="旅の支出を写真と地図で残すタビカケ" loading="lazy" />
+            <span class="badge badge--ios">iOS</span>
+          </figure>
           <div class="card__body">
             <h3 class="card__title">タビカケ</h3>
             <p class="card__desc">1支出 = 1ピン（写真＋場所＋金額）。旅行やデート単位で「何にいくら使ったか」を写真つきで振り返る思い出×家計簿。TestFlight配信済み。</p>
@@ -178,8 +188,12 @@
         </article>
 
         <!-- 起きて -->
-        <article class="card" data-cat="ios">
-          <div class="card__thumb t-okite">⏰<span class="badge badge--ios">iOS</span></div>
+        <article class="card reveal" data-cat="ios">
+          <figure class="card__thumb t-okite media">
+            <div class="media__fallback">⏰</div>
+            <img class="media__img" src="assets/okite.jpg" alt="枕元で鳴る本物の目覚まし 起きて" loading="lazy" />
+            <span class="badge badge--ios">iOS</span>
+          </figure>
           <div class="card__body">
             <h3 class="card__title">起きて</h3>
             <p class="card__desc">マナーモード・集中モードを貫通して鳴る本物の目覚まし。iOS 26 の AlarmKit を使用。他アプリからURLスキームで一括セットできる連携口つき。</p>
@@ -191,8 +205,12 @@
         </article>
 
         <!-- 行ってきます -->
-        <article class="card" data-cat="ios">
-          <div class="card__thumb t-hibi">🚪<span class="badge badge--ios">iOS</span></div>
+        <article class="card reveal" data-cat="ios">
+          <figure class="card__thumb t-hibi media">
+            <div class="media__fallback">🚪</div>
+            <img class="media__img" src="assets/ittekimasu.jpg" alt="玄関で忘れ物を防ぐ いってきます" loading="lazy" />
+            <span class="badge badge--ios">iOS</span>
+          </figure>
           <div class="card__body">
             <h3 class="card__title">いってきます</h3>
             <p class="card__desc">家を出る前の忘れ物を防ぐアプリ。持ち物と出発時刻を声で入力し、予定・天気・曜日から「今日の持ち物」を自動で組み立てて通知。</p>
@@ -204,8 +222,12 @@
         </article>
 
         <!-- Hibi -->
-        <article class="card" data-cat="ios">
-          <div class="card__thumb t-toushi">📷<span class="badge badge--ios">iOS</span></div>
+        <article class="card reveal" data-cat="ios">
+          <figure class="card__thumb t-toushi media">
+            <div class="media__fallback">📷</div>
+            <img class="media__img" src="assets/hibi.jpg" alt="似た写真を整理する Hibi" loading="lazy" />
+            <span class="badge badge--ios">iOS</span>
+          </figure>
           <div class="card__body">
             <h3 class="card__title">Hibi（日々）</h3>
             <p class="card__desc">似た写真からベストショットを自動抽出し、残りを整理して容量を節約。判定はすべて端末内で完結（オンデバイスAI・写真は外に出ない）。</p>
@@ -223,10 +245,10 @@
   <!-- ============ ABOUT ============ -->
   <section id="about">
     <div class="wrap">
-      <p class="eyebrow">About</p>
-      <h2 class="section-title">tomjo について</h2>
+      <p class="eyebrow reveal">About</p>
+      <h2 class="section-title reveal">tomjo について</h2>
       <div class="about">
-        <div>
+        <div class="reveal">
           <p>慶應義塾大学の学生です。Python / JavaScript / TypeScript を中心に、
           「自分や現場が毎日使いたくなるもの」を、企画から実装・運用まで一人で作っています。</p>
           <p>受付現場の原体験から生まれた受付管理SaaS <strong>welcomy</strong> は実際の校舎で稼働中。
@@ -234,7 +256,7 @@
           <p class="fill" style="color:var(--ink-soft)"><b style="color:var(--accent-ink)">✍️ ここは自己紹介を自分の言葉で</b>
           なぜ作るのが好きか／どんなものに興味があるか、を後で追記予定。</p>
         </div>
-        <div>
+        <div class="reveal">
           <p class="stack-title">よく使う技術</p>
           <div class="stack">
             <span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Python</span>
@@ -259,19 +281,6 @@
     </div>
   </footer>
 
-  <script>
-    // 作品フィルタ（Web / iOS）
-    const filters = document.querySelectorAll('.filter');
-    const cards = document.querySelectorAll('#grid .card');
-    filters.forEach(btn => btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      const f = btn.dataset.filter;
-      cards.forEach(c => {
-        const show = f === 'all' || c.dataset.cat === f;
-        c.classList.toggle('is-hidden', !show);
-      });
-    }));
-  </script>
+  <script src="site.js" defer></script>
 </body>
 </html>
