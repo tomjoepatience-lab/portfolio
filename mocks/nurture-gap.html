@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Nurture — 自己認識のズレ</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f9fafb;--card:#fff;--border:#e5e7eb;--ink:#111827;--soft:#6b7280;--mute:#9ca3af;
+    --indigo:#4f46e5;--em:#10b981;--red:#ef4444;
+  }
+  html,body{background:var(--bg)}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Yu Gothic UI",Meiryo,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .app{width:1440px;height:900px;display:flex;overflow:hidden}
+
+  .sb{width:216px;flex:none;background:#1e1b4b;color:#c7d2fe;display:flex;flex-direction:column;padding:22px 14px}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 10px 20px}
+  .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(79,70,229,.4)}
+  .brand b{color:#fff;font-size:20px;letter-spacing:.3px;font-weight:800}
+  .brand span{display:block;font-size:11px;color:#818cf8;margin-top:2px}
+  .nav{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+  .nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;color:#c7d2fe;text-decoration:none;font-size:14.5px;font-weight:600;position:relative}
+  .nav a .ic{width:20px;text-align:center;font-size:16px;opacity:.92}
+  .nav a.on{background:#312e81;color:#fff}
+  .nav a.on:after{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:#818cf8}
+  .sb-foot{margin-top:auto;padding:12px 10px 4px;border-top:1px solid #312e81;display:flex;align-items:center;gap:10px}
+  .sb-foot .av{width:34px;height:34px;border-radius:50%;background:#4338ca;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .sb-foot .nm{font-size:13px;color:#e0e7ff;font-weight:600}
+  .sb-foot .rl{font-size:11px;color:#818cf8}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .top{height:64px;flex:none;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+  .top h1{font-size:19px;font-weight:800}
+  .top h1 small{font-size:12.5px;color:var(--mute);font-weight:600;margin-left:10px}
+  .top-r{display:flex;align-items:center;gap:14px}
+  .pill{display:flex;align-items:center;gap:8px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:8px 13px;font-size:13.5px;font-weight:700;color:var(--indigo)}
+  .top .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+
+  .content{flex:1;padding:22px 28px;display:flex;flex-direction:column;gap:18px;overflow:hidden}
+
+  .head{display:flex;align-items:center;gap:16px}
+  .head .av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:800;flex:none}
+  .head .t .eyebrow{font-size:12px;color:var(--indigo);font-weight:800;letter-spacing:.5px}
+  .head .t h2{font-size:22px;font-weight:800;margin-top:2px}
+  .head .t h2 em{font-style:normal;font-size:13.5px;color:var(--soft);font-weight:600;margin-left:8px}
+  .gapchip{margin-left:auto;display:flex;align-items:center;gap:13px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px;padding:11px 20px}
+  .gapchip .k{font-size:12px;color:var(--indigo);font-weight:700}
+  .gapchip .v{font-size:30px;font-weight:800;color:var(--indigo);line-height:1}
+  .gapchip .d{font-size:12px;color:var(--soft);font-weight:600;max-width:180px;line-height:1.4}
+
+  .body{flex:1;display:grid;grid-template-columns:1.02fr 1fr;gap:18px;min-height:0}
+  .col{display:flex;flex-direction:column;gap:18px;min-height:0}
+  .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;box-shadow:0 1px 3px rgba(17,24,39,.05);display:flex;flex-direction:column;min-height:0}
+  .p-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px}
+  .p-title .sub{font-size:11.5px;color:var(--mute);font-weight:600;margin-left:6px}
+  .legend{display:flex;gap:16px;margin-left:auto}
+  .lg{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700}
+  .lg .sw{width:13px;height:13px;border-radius:3px}
+  .lg.self .sw{background:var(--indigo)}.lg.sup .sw{background:var(--em)}
+
+  /* radar */
+  .radar-wrap{position:relative;flex:1;min-height:0;margin-top:4px}
+  .radar-wrap svg{position:absolute;inset:0;width:100%;height:100%}
+  .axlab{position:absolute;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+  .axlab .nm{font-size:13px;font-weight:800;color:var(--ink);white-space:nowrap}
+  .axlab .sc{font-size:11px;font-weight:700;margin-top:2px;white-space:nowrap}
+  .axlab .sc .s{color:var(--indigo)}.axlab .sc .u{color:var(--em)}
+
+  /* line chart */
+  .lc-panel{flex:none}
+  .lc{width:100%;height:186px;margin-top:8px}
+  .lc-x{display:flex;justify-content:space-around;font-size:12px;color:var(--soft);font-weight:700;margin-top:2px;padding:0 30px 0 44px}
+  .lc-note{margin-top:10px;font-size:12.5px;color:var(--soft);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:9px 13px}
+  .lc-note b{color:#047857}
+
+  /* gap insight */
+  .gi{flex:1}
+  .gi .txt{font-size:12.8px;line-height:1.6;color:#374151;margin:8px 0 14px}
+  .gi .txt b{color:var(--ink)}
+  .gbar-lab{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:10px}
+  .grow{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+  .gname{font-size:13px;font-weight:700;width:118px;flex:none}
+  .gtrack{flex:1;position:relative;height:26px}
+  .gseg{position:absolute;top:3px;height:20px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11.5px;font-weight:800;color:#fff}
+  .gseg.sup{left:0;background:var(--em)}
+  .gseg.self{background:rgba(79,70,229,.16);border:1.5px solid var(--indigo);color:var(--indigo)}
+  .gval{font-size:12.5px;font-weight:800;color:var(--indigo);width:52px;text-align:right;flex:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sb">
+    <div class="brand"><div class="logo">🌱</div><div><b>Nurture</b><span>人材育成</span></div></div>
+    <nav class="nav">
+      <a href="#"><span class="ic">🏠</span>ホーム</a>
+      <a href="#" class="on"><span class="ic">🌱</span>育成対象</a>
+      <a href="#"><span class="ic">📝</span>評価入力</a>
+      <a href="#"><span class="ic">🎯</span>目標</a>
+      <a href="#"><span class="ic">✅</span>TODO</a>
+      <a href="#"><span class="ic">🤝</span>相性</a>
+      <a href="#"><span class="ic">⚙️</span>設定</a>
+    </nav>
+    <div class="sb-foot"><div class="av">店</div><div><div class="nm">青葉台校</div><div class="rl">育成担当</div></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1>評価分析<small>自己評価 × 上司評価</small></h1>
+      <div class="top-r">
+        <div class="pill">👤 田中 蓮 ▾</div>
+        <div class="pill" style="background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9">📅 直近3ヶ月</div>
+        <div class="av">T</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="head">
+        <div class="av">田</div>
+        <div class="t">
+          <div class="eyebrow">自己認識のズレ</div>
+          <h2>田中 蓮 さん<em>アルバイト2年目 ・ 2026年6月時点</em></h2>
+        </div>
+        <div class="gapchip">
+          <div><div class="k">平均のズレ（自己 − 上司）</div><div class="v">+0.8</div></div>
+          <div class="d">全項目で自己評価が上司評価を上回っています</div>
+        </div>
+      </div>
+
+      <div class="body">
+        <!-- LEFT: radar -->
+        <section class="panel">
+          <div class="p-title">評価レーダー<span class="sub">5項目 × 5段階</span>
+            <div class="legend"><span class="lg self"><span class="sw"></span>自己評価</span><span class="lg sup"><span class="sw"></span>上司評価</span></div>
+          </div>
+          <div class="radar-wrap">
+            <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">
+              <!-- grid pentagons -->
+              <g fill="none" stroke="#e5e7eb" stroke-width="1">
+                <polygon points="250,215 283.3,239.2 270.6,278.3 229.4,278.3 216.7,239.2"/>
+                <polygon points="250,180 316.6,228.4 291.2,306.6 208.8,306.6 183.4,228.4"/>
+                <polygon points="250,145 349.8,217.5 311.7,335.0 188.3,335.0 150.2,217.5"/>
+                <polygon points="250,110 383.1,206.7 332.3,363.3 167.7,363.3 116.9,206.7"/>
+                <polygon points="250,75 416.4,195.9 352.9,391.6 147.1,391.6 83.6,195.9" stroke="#d1d5db"/>
+              </g>
+              <!-- axes -->
+              <g stroke="#e5e7eb" stroke-width="1">
+                <line x1="250" y1="250" x2="250" y2="75"/>
+                <line x1="250" y1="250" x2="416.4" y2="195.9"/>
+                <line x1="250" y1="250" x2="352.9" y2="391.6"/>
+                <line x1="250" y1="250" x2="147.1" y2="391.6"/>
+                <line x1="250" y1="250" x2="83.6" y2="195.9"/>
+              </g>
+              <!-- supervisor polygon -->
+              <polygon points="250,138 363.2,213.2 332.3,363.3 192.4,329.3 130.2,211.0" fill="rgba(16,185,129,.18)" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- self polygon -->
+              <polygon points="250,110 396.4,202.4 344.7,380.3 171.8,357.6 110.2,204.6" fill="rgba(79,70,229,.14)" stroke="#4f46e5" stroke-width="2.5" stroke-linejoin="round"/>
+              <!-- dots -->
+              <g fill="#10b981"><circle cx="250" cy="138" r="4"/><circle cx="363.2" cy="213.2" r="4"/><circle cx="332.3" cy="363.3" r="4"/><circle cx="192.4" cy="329.3" r="4"/><circle cx="130.2" cy="211.0" r="4"/></g>
+              <g fill="#4f46e5"><circle cx="250" cy="110" r="4"/><circle cx="396.4" cy="202.4" r="4"/><circle cx="344.7" cy="380.3" r="4"/><circle cx="171.8" cy="357.6" r="4"/><circle cx="110.2" cy="204.6" r="4"/></g>
+            </svg>
+            <div class="axlab" style="left:50%;top:6%"><div class="nm">教務指導力</div><div class="sc"><span class="s">自4.0</span> / <span class="u">上3.2</span></div></div>
+            <div class="axlab" style="left:88%;top:33%"><div class="nm">ヒューマン<br>スキル</div><div class="sc"><span class="s">自4.4</span> / <span class="u">上3.4</span></div></div>
+            <div class="axlab" style="left:76%;top:88%"><div class="nm">基本姿勢</div><div class="sc"><span class="s">自4.6</span> / <span class="u">上4.0</span></div></div>
+            <div class="axlab" style="left:24%;top:88%"><div class="nm">報連相</div><div class="sc"><span class="s">自3.8</span> / <span class="u">上2.8</span></div></div>
+            <div class="axlab" style="left:11%;top:33%"><div class="nm">自立度</div><div class="sc"><span class="s">自4.2</span> / <span class="u">上3.6</span></div></div>
+          </div>
+        </section>
+
+        <!-- RIGHT -->
+        <div class="col">
+          <section class="panel lc-panel">
+            <div class="p-title">上司評価の推移<span class="sub">直近3ヶ月・総合スコア</span></div>
+            <svg class="lc" viewBox="0 0 440 200" preserveAspectRatio="none">
+              <g stroke="#eef2f7" stroke-width="1">
+                <line x1="44" y1="20" x2="410" y2="20"/><line x1="44" y1="57.5" x2="410" y2="57.5"/>
+                <line x1="44" y1="95" x2="410" y2="95"/><line x1="44" y1="132.5" x2="410" y2="132.5"/>
+                <line x1="44" y1="170" x2="410" y2="170" stroke="#e2e8f0"/>
+              </g>
+              <g font-size="11" fill="#9ca3af" text-anchor="end" font-weight="600">
+                <text x="36" y="24">5</text><text x="36" y="61.5">4</text><text x="36" y="99">3</text><text x="36" y="136.5">2</text><text x="36" y="174">1</text>
+              </g>
+              <!-- gap band -->
+              <polygon points="70,50 220,50 380,50 380,80 220,91.25 70,102.5" fill="rgba(79,70,229,.07)"/>
+              <!-- self (flat, indigo, dashed) -->
+              <polyline points="70,50 220,50 380,50" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-dasharray="6 5" stroke-linecap="round"/>
+              <!-- supervisor (rising, emerald) -->
+              <polyline points="70,102.5 220,91.25 380,80" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <g fill="#4f46e5"><circle cx="70" cy="50" r="4"/><circle cx="220" cy="50" r="4"/><circle cx="380" cy="50" r="4"/></g>
+              <g fill="#10b981"><circle cx="70" cy="102.5" r="4.5"/><circle cx="220" cy="91.25" r="4.5"/><circle cx="380" cy="80" r="4.5"/></g>
+              <text x="70" y="118" font-size="11.5" fill="#047857" text-anchor="middle" font-weight="800">2.8</text>
+              <text x="220" y="107" font-size="11.5" fill="#047857" text-anchor="middle" font-weight="800">3.1</text>
+              <text x="388" y="76" font-size="12.5" fill="#047857" text-anchor="start" font-weight="800">3.4</text>
+              <text x="380" y="42" font-size="11" fill="#4f46e5" text-anchor="middle" font-weight="800">自己 4.2</text>
+            </svg>
+            <div class="lc-x" style="justify-content:space-between;padding-left:56px;padding-right:36px"><span>4月</span><span>5月</span><span>6月</span></div>
+            <div class="lc-note">上司評価は <b>2.8 → 3.4 に上昇</b>。自己評価とのズレは 1.4 → 0.8 に縮まり、認識のすり合わせが進んでいます。</div>
+          </section>
+
+          <section class="panel gi">
+            <div class="p-title">ズレが大きい項目<span class="sub">1on1で扱いたいポイント</span></div>
+            <div class="txt">自己評価が全項目で上司評価を上回っています。特に <b>「報連相」「ヒューマンスキル」</b> で認識差が大きく（+1.0）、本人は「できている」と感じている一方、上司は<b>具体的な行動の質</b>を見て評価しています。事実ベースの事例をすり合わせると効果的です。</div>
+            <div class="gbar-lab">■ 上司評価　▢ 自己評価</div>
+            <div class="grow">
+              <div class="gname">報連相</div>
+              <div class="gtrack">
+                <div class="gseg self" style="left:0;width:76%">自 3.8</div>
+                <div class="gseg sup" style="width:56%">上 2.8</div>
+              </div>
+              <div class="gval">+1.0</div>
+            </div>
+            <div class="grow">
+              <div class="gname">ヒューマンスキル</div>
+              <div class="gtrack">
+                <div class="gseg self" style="left:0;width:88%">自 4.4</div>
+                <div class="gseg sup" style="width:68%">上 3.4</div>
+              </div>
+              <div class="gval">+1.0</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

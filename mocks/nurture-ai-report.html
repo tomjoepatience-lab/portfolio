@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Nurture — 月次育成レポート</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f9fafb;--card:#fff;--border:#e5e7eb;--ink:#111827;--soft:#6b7280;--mute:#9ca3af;
+    --indigo:#4f46e5;--indigo-d:#4338ca;--em:#10b981;--red:#ef4444;--amber:#f59e0b;
+  }
+  html,body{background:var(--bg)}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Yu Gothic UI",Meiryo,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .app{width:1440px;height:900px;display:flex;overflow:hidden}
+
+  /* sidebar */
+  .sb{width:216px;flex:none;background:#1e1b4b;color:#c7d2fe;display:flex;flex-direction:column;padding:22px 14px}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 10px 20px}
+  .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(79,70,229,.4)}
+  .brand b{color:#fff;font-size:20px;letter-spacing:.3px;font-weight:800}
+  .brand span{display:block;font-size:11px;color:#818cf8;margin-top:2px}
+  .nav{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+  .nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;color:#c7d2fe;text-decoration:none;font-size:14.5px;font-weight:600;position:relative}
+  .nav a .ic{width:20px;text-align:center;font-size:16px;opacity:.92}
+  .nav a.on{background:#312e81;color:#fff}
+  .nav a.on:after{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:#818cf8}
+  .sb-foot{margin-top:auto;padding:12px 10px 4px;border-top:1px solid #312e81;display:flex;align-items:center;gap:10px}
+  .sb-foot .av{width:34px;height:34px;border-radius:50%;background:#4338ca;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .sb-foot .nm{font-size:13px;color:#e0e7ff;font-weight:600}
+  .sb-foot .rl{font-size:11px;color:#818cf8}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .top{height:64px;flex:none;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+  .top h1{font-size:19px;font-weight:800}
+  .top h1 small{font-size:12.5px;color:var(--mute);font-weight:600;margin-left:10px}
+  .top-r{display:flex;align-items:center;gap:14px}
+  .pill{display:flex;align-items:center;gap:8px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:8px 13px;font-size:13.5px;font-weight:700;color:var(--indigo)}
+  .top .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+
+  .content{flex:1;padding:22px 28px;display:flex;flex-direction:column;gap:18px;overflow:hidden}
+
+  /* report header */
+  .rhead{background:linear-gradient(120deg,#4f46e5,#6d28d9);border-radius:16px;padding:20px 26px;color:#fff;display:flex;align-items:center;gap:24px;box-shadow:0 10px 26px rgba(79,70,229,.28)}
+  .rhead .who{flex:1}
+  .rhead .tag{display:inline-block;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:4px 11px;border-radius:20px;margin-bottom:9px}
+  .rhead h2{font-size:24px;font-weight:800;letter-spacing:.4px}
+  .rhead h2 em{font-style:normal;font-size:15px;font-weight:600;opacity:.85;margin-left:10px}
+  .rhead .biz{display:flex;gap:26px;margin-top:14px}
+  .rhead .biz .b-lab{font-size:11.5px;opacity:.8;font-weight:700;margin-bottom:6px}
+  .rhead .biz .b-items{display:flex;gap:7px;flex-wrap:wrap}
+  .rhead .bchip{font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:8px}
+  .rhead .bchip.ok{background:rgba(255,255,255,.92);color:#3730a3}
+  .rhead .bchip.no{background:rgba(15,23,42,.28);color:#fff;border:1px dashed rgba(255,255,255,.55)}
+  .grade{flex:none;text-align:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:12px 22px}
+  .grade .g{font-size:52px;font-weight:800;line-height:1}
+  .grade .g-lab{font-size:11.5px;font-weight:700;opacity:.85;margin-top:2px}
+  .grade .g-scale{font-size:10.5px;opacity:.7;margin-top:5px}
+
+  .body{flex:1;display:grid;grid-template-columns:1.12fr 1fr;gap:18px;min-height:0}
+  .col{display:flex;flex-direction:column;gap:18px;min-height:0}
+  .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 19px;box-shadow:0 1px 3px rgba(17,24,39,.05);display:flex;flex-direction:column}
+  .p-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .p-title .ico{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .p-title .sub{font-size:11.5px;color:var(--mute);font-weight:600}
+  .ico.ind{background:#eef2ff;color:var(--indigo)}.ico.red{background:#fef2f2}.ico.grn{background:#ecfdf5}.ico.amb{background:#fffbeb}
+
+  /* dot table */
+  .dots{margin-top:8px;display:flex;flex-direction:column}
+  .drow{display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid #f3f4f6}
+  .drow:last-child{border-bottom:none}
+  .dname{font-size:13.5px;font-weight:700;width:170px;flex:none}
+  .dname .mini{display:block;font-size:10.5px;color:var(--mute);font-weight:600}
+  .dd{display:flex;gap:5px;flex:1}
+  .dd i{width:15px;height:15px;border-radius:50%;background:#e5e7eb}
+  .dd i.f{background:var(--indigo)}
+  .dscore{font-size:13px;font-weight:800;color:var(--indigo);width:34px;text-align:right}
+  .dbadge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:20px;flex:none}
+  .dbadge.weak{background:#fef2f2;color:#b91c1c}
+  .dbadge.good{background:#ecfdf5;color:#047857}
+
+  /* action plan */
+  .plan{gap:0}
+  .prow{display:flex;gap:13px;padding:11px 0;border-bottom:1px solid #f3f4f6}
+  .prow:last-child{border-bottom:none;padding-bottom:2px}
+  .pwhen{flex:none;width:96px}
+  .pwhen .badge{display:inline-block;font-size:11px;font-weight:800;color:#fff;padding:4px 10px;border-radius:8px;background:var(--indigo)}
+  .pwhen .badge.b2{background:#7c3aed}.pwhen .badge.b3{background:#0ea5e9}
+  .ptext{font-size:13px;line-height:1.55;color:#374151;flex:1}
+  .ptext b{color:var(--ink)}
+
+  /* issue / praise boxes */
+  .box{flex:1}
+  .box.red{background:#fef2f2;border-color:#fecaca}
+  .box.grn{background:#f0fdf4;border-color:#bbf7d0}
+  .item{display:flex;gap:11px;padding:10px 0}
+  .item:not(:last-child){border-bottom:1px solid rgba(0,0,0,.05)}
+  .inum{flex:none;width:23px;height:23px;border-radius:50%;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .box.red .inum{background:var(--red)}
+  .box.grn .inum{background:var(--em)}
+  .itext{font-size:12.7px;line-height:1.55;color:#374151}
+  .itext b{color:var(--ink)}
+  .box.red .p-title{color:#b91c1c}
+  .box.grn .p-title{color:#047857}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sb">
+    <div class="brand"><div class="logo">🌱</div><div><b>Nurture</b><span>人材育成</span></div></div>
+    <nav class="nav">
+      <a href="#"><span class="ic">🏠</span>ホーム</a>
+      <a href="#" class="on"><span class="ic">🌱</span>育成対象</a>
+      <a href="#"><span class="ic">📝</span>評価入力</a>
+      <a href="#"><span class="ic">🎯</span>目標</a>
+      <a href="#"><span class="ic">✅</span>TODO</a>
+      <a href="#"><span class="ic">🤝</span>相性</a>
+      <a href="#"><span class="ic">⚙️</span>設定</a>
+    </nav>
+    <div class="sb-foot"><div class="av">店</div><div><div class="nm">青葉台校</div><div class="rl">育成担当</div></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1>月次育成レポート<small>育成者向けシート</small></h1>
+      <div class="top-r">
+        <div class="pill">📅 2026年6月 ▾</div>
+        <div class="pill" style="background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9">🤖 Claude 生成</div>
+        <div class="av">T</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- report header -->
+      <div class="rhead">
+        <div class="who">
+          <span class="tag">育成者向け（本人には非公開）</span>
+          <h2>田中 蓮 さん<em>アルバイト2年目 ・ 育成担当 山口</em></h2>
+          <div class="biz">
+            <div>
+              <div class="b-lab">✓ 任せてよい業務</div>
+              <div class="b-items"><span class="bchip ok">開館準備</span><span class="bchip ok">電話 一次対応</span></div>
+            </div>
+            <div>
+              <div class="b-lab">△ まだ任せられない業務</div>
+              <div class="b-items"><span class="bchip no">クレーム一次対応</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="grade">
+          <div class="g">B</div>
+          <div class="g-lab">総合評価</div>
+          <div class="g-scale">A・B・C・D・E</div>
+        </div>
+      </div>
+
+      <div class="body">
+        <!-- LEFT -->
+        <div class="col">
+          <section class="panel" style="flex:none">
+            <div class="p-title"><span class="ico ind">◎</span>5基準診断<span class="sub">記録・行動の観察にもとづく5段階</span></div>
+            <div class="dots">
+              <div class="drow">
+                <div class="dname">周辺視野（気づく力）<span class="mini">場全体を見て先に動く</span></div>
+                <div class="dd"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div>
+                <div class="dscore">2/5</div><span class="dbadge weak">最も弱い</span>
+              </div>
+              <div class="drow">
+                <div class="dname">報連相の質<span class="mini">事実＋解釈＋次の一手</span></div>
+                <div class="dd"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div>
+                <div class="dscore">2/5</div><span class="dbadge" style="visibility:hidden">-</span>
+              </div>
+              <div class="drow">
+                <div class="dname">状況判断・優先順位<span class="mini">忙しい時の捌き方</span></div>
+                <div class="dd"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></div>
+                <div class="dscore">3/5</div><span class="dbadge" style="visibility:hidden">-</span>
+              </div>
+              <div class="drow">
+                <div class="dname">主体性・自立度<span class="mini">指示待ちにならない</span></div>
+                <div class="dd"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></div>
+                <div class="dscore">3/5</div><span class="dbadge" style="visibility:hidden">-</span>
+              </div>
+              <div class="drow">
+                <div class="dname">生徒対応の丁寧さ<span class="mini">言葉づかい・気配り</span></div>
+                <div class="dd"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div>
+                <div class="dscore">4/5</div><span class="dbadge good">強み</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel plan" style="flex:1">
+            <div class="p-title"><span class="ico ind">🚩</span>育成アクションプラン</div>
+            <div class="prow">
+              <div class="pwhen"><span class="badge">次のシフトで</span></div>
+              <div class="ptext">業務報告に<b>「だから次はこうする」を一言</b>添えるルールを一緒に決める。まずは1日1件でOK。</div>
+            </div>
+            <div class="prow">
+              <div class="pwhen"><span class="badge b2">2週間以内</span></div>
+              <div class="ptext"><b>「良い受付・惜しい受付」の具体例を3つ</b>言語化し、"何を見て判断するか"のフレームを渡す（周辺視野の底上げ）。</div>
+            </div>
+            <div class="prow">
+              <div class="pwhen"><span class="badge b3">今月中に</span></div>
+              <div class="ptext">混雑ピーク（金19時）のシフトで<b>"場を見る"役割</b>を任せ、終わりに一緒に振り返る。</div>
+            </div>
+          </section>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col">
+          <section class="panel box red">
+            <div class="p-title"><span class="ico red">⚠️</span>課題<span class="sub" style="color:#f87171">— 根本にある原因</span></div>
+            <div class="item">
+              <span class="inum">1</span>
+              <div class="itext">報告が<b>「〜しました」の事実の羅列</b>で止まり、自分がどう判断し次どうするかの<b>解釈がない</b>。原因は "何を見て良し悪しを決めるか" のフレームを、まだ言語化して教わっていない可能性が高い。</div>
+            </div>
+            <div class="item">
+              <span class="inum">2</span>
+              <div class="itext">忙しい時間帯に手元の作業へ視野が狭まり、<b>入口で待つ生徒や困っている後輩に気づけていない</b>。"作業の速さ" を優先する価値観が先行し、"場全体を見る" が後回しになっている。</div>
+            </div>
+          </section>
+
+          <section class="panel box grn">
+            <div class="p-title"><span class="ico grn">👍</span>褒めポイント<span class="sub" style="color:#34d399">— 具体的な行動で</span></div>
+            <div class="item">
+              <span class="inum">1</span>
+              <div class="itext"><b>6/14</b>、体調不良で早退した生徒に自分から声をかけ、保護者連絡の要否を社員に確認してから引き継いだ。<b>マニュアルにない場面で「確認して動く」判断</b>ができている。</div>
+            </div>
+            <div class="item">
+              <span class="inum">2</span>
+              <div class="itext"><b>開館準備を毎回15分前に完了</b>させ、プリンタ用紙・アンケート補充まで先回り。任された定型業務の完遂度が高く、<b>後輩の見本</b>になっている。</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

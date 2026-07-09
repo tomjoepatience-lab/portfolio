@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Nurture — 今月のふりかえりレポート</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f9fafb;--card:#fff;--border:#e5e7eb;--ink:#111827;--soft:#6b7280;--mute:#9ca3af;
+    --indigo:#4f46e5;--em:#10b981;--amber:#f59e0b;
+  }
+  html,body{background:var(--bg)}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Yu Gothic UI",Meiryo,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  .app{width:1440px;height:900px;display:flex;overflow:hidden}
+
+  .sb{width:216px;flex:none;background:#1e1b4b;color:#c7d2fe;display:flex;flex-direction:column;padding:22px 14px}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 10px 20px}
+  .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(79,70,229,.4)}
+  .brand b{color:#fff;font-size:20px;letter-spacing:.3px;font-weight:800}
+  .brand span{display:block;font-size:11px;color:#818cf8;margin-top:2px}
+  .nav{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+  .nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;color:#c7d2fe;text-decoration:none;font-size:14.5px;font-weight:600;position:relative}
+  .nav a .ic{width:20px;text-align:center;font-size:16px;opacity:.92}
+  .nav a.on{background:#312e81;color:#fff}
+  .nav a.on:after{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:#818cf8}
+  .sb-foot{margin-top:auto;padding:12px 10px 4px;border-top:1px solid #312e81;display:flex;align-items:center;gap:10px}
+  .sb-foot .av{width:34px;height:34px;border-radius:50%;background:#4338ca;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .sb-foot .nm{font-size:13px;color:#e0e7ff;font-weight:600}
+  .sb-foot .rl{font-size:11px;color:#818cf8}
+
+  .main{flex:1;display:flex;flex-direction:column;min-width:0}
+  .top{height:64px;flex:none;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+  .top h1{font-size:19px;font-weight:800}
+  .top h1 small{font-size:12.5px;color:var(--mute);font-weight:600;margin-left:10px}
+  .top-r{display:flex;align-items:center;gap:14px}
+  .pill{display:flex;align-items:center;gap:8px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:8px 13px;font-size:13.5px;font-weight:700;color:var(--indigo)}
+  .top .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+
+  .content{flex:1;padding:22px 28px;display:flex;flex-direction:column;gap:18px;overflow:hidden}
+
+  /* hero */
+  .hero{background:linear-gradient(120deg,#6366f1,#8b5cf6);border-radius:16px;padding:20px 26px;color:#fff;display:flex;align-items:center;gap:20px;box-shadow:0 10px 26px rgba(99,102,241,.28)}
+  .hero .emoji{font-size:44px;flex:none}
+  .hero .g{flex:1}
+  .hero .tag{font-size:12px;font-weight:700;opacity:.9}
+  .hero h2{font-size:25px;font-weight:800;margin-top:3px;letter-spacing:.4px}
+  .hero .lead{font-size:13px;opacity:.92;margin-top:5px}
+  .hero .chips{display:flex;gap:12px;flex:none}
+  .hchip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:11px 18px;text-align:center}
+  .hchip .n{font-size:22px;font-weight:800;line-height:1}
+  .hchip .k{font-size:11px;opacity:.85;font-weight:700;margin-top:4px}
+
+  .body{flex:1;display:grid;grid-template-columns:1.5fr 1fr;gap:18px;min-height:0}
+  .col{display:flex;flex-direction:column;gap:16px;min-height:0}
+  .sec{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 20px;box-shadow:0 1px 3px rgba(17,24,39,.05);flex:1;display:flex;flex-direction:column}
+  .sec-h{display:flex;align-items:center;gap:11px;margin-bottom:8px}
+  .sec-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+  .ic-1{background:#eef2ff}.ic-2{background:#ecfdf5}.ic-3{background:#fffbeb}
+  .sec-t{font-size:15.5px;font-weight:800}
+  .sec-t .en{font-size:11px;color:var(--mute);font-weight:700;margin-left:7px;letter-spacing:.5px}
+  .sec p{font-size:13.4px;line-height:1.72;color:#374151}
+  .sec p b{color:var(--ink);font-weight:700}
+  .sec.s1 .sec-t{color:var(--indigo)}
+  .sec.s2 .sec-t{color:#047857}
+  .sec.s3 .sec-t{color:#b45309}
+
+  .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 19px;box-shadow:0 1px 3px rgba(17,24,39,.05);display:flex;flex-direction:column}
+  .p-title{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+  .p-title .sub{font-size:11.5px;color:var(--mute);font-weight:600;margin-left:4px}
+
+  /* goals */
+  .goal{margin-top:15px}
+  .goal .gh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  .goal .name{font-size:13px;font-weight:700}
+  .goal .name .badge{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;margin-right:7px;vertical-align:middle}
+  .goal .name .badge.org{background:#eef2ff;color:var(--indigo)}
+  .goal .name .badge.me{background:#ecfdf5;color:#047857}
+  .goal .pct{font-size:16px;font-weight:800}
+  .goal.org .pct{color:var(--indigo)}
+  .goal.me .pct{color:#047857}
+  .track{height:12px;background:#eef1f5;border-radius:8px;overflow:hidden}
+  .track i{display:block;height:100%;border-radius:8px}
+  .goal.org .track i{width:70%;background:linear-gradient(90deg,#818cf8,#4f46e5)}
+  .goal.me .track i{width:55%;background:linear-gradient(90deg,#34d399,#10b981)}
+  .goal .cap{font-size:11.5px;color:var(--soft);margin-top:6px;font-weight:600}
+
+  /* record */
+  .rec{flex:1}
+  .rec-top{display:flex;align-items:center;gap:18px;margin-top:12px}
+  .ring{width:96px;height:96px;flex:none;position:relative}
+  .ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .val .big{font-size:24px;font-weight:800;color:var(--indigo);line-height:1}
+  .ring .val .k{font-size:10.5px;color:var(--soft);font-weight:700;margin-top:2px}
+  .rec-meta{flex:1}
+  .rec-meta .line{font-size:13px;color:#374151;font-weight:600;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+  .rec-meta .line b{font-size:16px;color:var(--ink);font-weight:800}
+  .rec-meta .streak{background:#fffbeb;border:1px solid #fde68a;color:#b45309;font-size:12px;font-weight:800;border-radius:8px;padding:5px 11px;display:inline-flex;gap:6px;align-items:center}
+  .dots{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:16px}
+  .dots i{aspect-ratio:1;border-radius:5px;background:#eef1f5}
+  .dots i.f{background:#4f46e5}
+  .dots i.x{background:#fee2e2}
+  .dots-cap{font-size:11px;color:var(--mute);font-weight:600;margin-top:9px;display:flex;gap:14px}
+  .dots-cap span{display:flex;align-items:center;gap:5px}
+  .dots-cap .sw{width:10px;height:10px;border-radius:3px}
+  .encourage{margin-top:14px;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:11px;padding:11px 14px;font-size:12.5px;color:#5b21b6;font-weight:600;line-height:1.55}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sb">
+    <div class="brand"><div class="logo">🌱</div><div><b>Nurture</b><span>人材育成</span></div></div>
+    <nav class="nav">
+      <a href="#" class="on"><span class="ic">🏠</span>ホーム</a>
+      <a href="#"><span class="ic">📝</span>今日のふりかえり</a>
+      <a href="#"><span class="ic">🎯</span>目標</a>
+      <a href="#"><span class="ic">✅</span>TODO</a>
+      <a href="#"><span class="ic">🤝</span>相性</a>
+      <a href="#"><span class="ic">📊</span>レポート</a>
+      <a href="#"><span class="ic">⚙️</span>設定</a>
+    </nav>
+    <div class="sb-foot"><div class="av">蓮</div><div><div class="nm">田中 蓮</div><div class="rl">青葉台校</div></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1>今月のふりかえりレポート<small>あなた向け</small></h1>
+      <div class="top-r">
+        <div class="pill">📅 2026年6月 ▾</div>
+        <div class="pill" style="background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9">🖨 印刷</div>
+        <div class="av">蓮</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- hero -->
+      <div class="hero">
+        <div class="emoji">🎉</div>
+        <div class="g">
+          <div class="tag">2026年6月のふりかえり</div>
+          <h2>おつかれさまでした、蓮さん！</h2>
+          <div class="lead">今月も一歩ずつ前に進めた1か月でした。あなたのがんばりを振り返ってみましょう。</div>
+        </div>
+        <div class="chips">
+          <div class="hchip"><div class="n">18/20日</div><div class="k">振り返り実施</div></div>
+          <div class="hchip"><div class="n">90%</div><div class="k">実施率</div></div>
+        </div>
+      </div>
+
+      <div class="body">
+        <!-- LEFT: 3 narrative sections -->
+        <div class="col">
+          <section class="sec s1">
+            <div class="sec-h"><span class="sec-ic ic-1">🌤️</span><div class="sec-t">今月のようす<span class="en">THIS MONTH</span></div></div>
+            <p>6月は20日中<b>18日</b>、しっかり振り返りを続けられました。受付では生徒一人ひとりに合わせた声かけができるようになり、"話しかけやすい先生"として頼られる場面が増えています。忙しい時間帯でも落ち着いて対応できる日が多い1か月でした。</p>
+          </section>
+          <section class="sec s2">
+            <div class="sec-h"><span class="sec-ic ic-2">🌱</span><div class="sec-t">成長できたこと<span class="en">GROWTH</span></div></div>
+            <p>開館準備を任され、<b>毎回15分前には完了させる段取りの良さ</b>が光りました。6/14には体調をくずした生徒にいち早く気づき、社員に確認したうえで丁寧に引き継ぎ。マニュアルにない場面でも<b>"自分で考えて動く"</b>一歩を踏み出せています。</p>
+          </section>
+          <section class="sec s3">
+            <div class="sec-h"><span class="sec-ic ic-3">🚀</span><div class="sec-t">来月に向けて<span class="en">NEXT STEP</span></div></div>
+            <p>次は<b>"報告にひと言、自分の考えを添える"</b>ことに挑戦してみましょう。「〜しました」に「だから次はこうします」を足すだけでOK。混雑する時間帯に少し顔を上げて、周りで困っている生徒や後輩に気づけると、さらに頼れる存在になれます。</p>
+          </section>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col">
+          <section class="panel" style="flex:none">
+            <div class="p-title">🎯 目標との距離<span class="sub">6月末時点</span></div>
+            <div class="goal org">
+              <div class="gh"><div class="name"><span class="badge org">校舎</span>また来たいと思える受付をつくる</div><div class="pct">70%</div></div>
+              <div class="track"><i></i></div>
+              <div class="cap">みんなで達成に向かっています。あと一歩！</div>
+            </div>
+            <div class="goal me">
+              <div class="gh"><div class="name"><span class="badge me">自分</span>報連相で自分の考えを言えるようになる</div><div class="pct">55%</div></div>
+              <div class="track"><i></i></div>
+              <div class="cap">先月の40%から着実に前進しています。</div>
+            </div>
+          </section>
+
+          <section class="panel rec">
+            <div class="p-title">🗓 記録のようす<span class="sub">シフト日ベース</span></div>
+            <div class="rec-top">
+              <div class="ring">
+                <svg viewBox="0 0 100 100" width="96" height="96">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#eef1f5" stroke-width="11"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#4f46e5" stroke-width="11" stroke-linecap="round" stroke-dasharray="237.5 26.4" transform="rotate(-90 50 50)"/>
+                </svg>
+                <div class="val"><div class="big">90%</div><div class="k">実施率</div></div>
+              </div>
+              <div class="rec-meta">
+                <div class="line">振り返りを書いた日 <b>18</b> / 20日</div>
+                <div class="line">平均提出タイミング <b>ほぼ当日</b></div>
+                <span class="streak">🔥 連続記録 6日</span>
+              </div>
+            </div>
+            <div class="dots">
+              <i class="f"></i><i class="f"></i><i class="f"></i><i class="x"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i>
+              <i class="f"></i><i class="f"></i><i class="x"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i>
+            </div>
+            <div class="dots-cap"><span><span class="sw" style="background:#4f46e5"></span>記録した日（18）</span><span><span class="sw" style="background:#fee2e2"></span>お休み・未記入（2）</span></div>
+            <div class="encourage">この調子で、来月も一緒にがんばりましょう。困ったことがあれば、いつでも育成担当に相談してくださいね。 — 育成担当より</div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

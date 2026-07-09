@@ -22,8 +22,10 @@ python -m http.server 8000
 3. リポジトリ Settings → Pages → Source を `main / (root)` に設定
 4. 数分後 `https://<user>.github.io/portfolio/` で公開
 
-## TODO（本人が埋める）
-- 制作記の `.fill`（斜線ハッチ）箇所を自分の言葉で
-- 各アプリの実スクリーンショット差し替え（今は絵文字プレースホルダ）
-- リンク（デモURL・GitHub URL）を実際のものに
-- About の自己紹介
+## TODO
+- 画像9点（`assets/IMAGE_PROMPTS.md`）を生成して assets/ に配置（置くだけで自動反映）
+- **制作記5章以降（サービスの説明・設計）が薄い＆現行実装と差分あり → アプリが完成したら実態に合わせて書き直す**
+- **制作記5章「できあがったもの」に実際のアプリ画面のスクショを載せる（アプリ完成後）**
+- GitHubリポジトリURLを実物に（今は github.com/tomjo/kakeibo 仮）
+- About の自己紹介を自分の言葉で
+- GitHub Pages 公開・提出URLの決定（index か 制作記）
