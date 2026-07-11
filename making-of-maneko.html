@@ -61,30 +61,60 @@
 
     <!-- ============ 5. サービスの説明 ============ -->
     <h2 class="reveal">5. できあがったもの — サービスの説明</h2>
-    <p>初回ログインで2つのモードを選びます。同じ家計データを、別の見た目で使えます。実際の画面がこちら。</p>
-    <div class="app-shots">
+    <p>初回ログインで「こども」「おとな」の2つのモードを選びます。同じ家計データを、別の見た目で使えます。</p>
+
+    <h3>🏘️ こどもモード「マネコタウン」</h3>
+    <div class="app-shots app-shots--3">
       <figure class="app-shot">
         <div class="media"><div class="media__fallback">🏘️</div><img class="media__img" src="assets/app/kids-home.png" alt="こどもモードのホーム画面 マネコタウン" loading="lazy"></div>
-        <figcaption>こどもホーム「マネコタウン」</figcaption>
+        <figcaption>こどもホーム — 街とマネコが育つ</figcaption>
       </figure>
       <figure class="app-shot">
         <div class="media"><div class="media__fallback">🗺️</div><img class="media__img" src="assets/app/journey.png" alt="貯金で世界が育つ ぼうけんマップ" loading="lazy"></div>
-        <figcaption>ぼうけんマップ — 貯金で世界が育つ</figcaption>
+        <figcaption>ぼうけんマップ — 貯金で世界がひろがる</figcaption>
       </figure>
       <figure class="app-shot">
+        <div class="media"><div class="media__fallback">🎁</div><img class="media__img" src="assets/app/gacha.png" alt="衣装ガチャ プレゼント画面" loading="lazy"></div>
+        <figcaption>プレゼント — コイン30枚で衣装ガチャ</figcaption>
+      </figure>
+    </div>
+    <p>ホームは3Dの街です。おさいふ・コイン・レベル・ごきげんメーター・きょうのチャレンジが並び、記録をつけるとコインやXPが貯まります。街並みは貯金のステージに合わせて「びんぼう長屋」から少しずつにぎやかに育ち、マネコの衣装も変わります。</p>
+    <p>きろくは「おかいものメモ」。金額とジャンルを選ぶだけのかんたん入力に加えて、こども用の<strong>レシート取込</strong>も用意しました。読み取った品物が、そのままメモの行に流し込まれます。</p>
+    <p>ちょきんタブには目標ごとのちょきん箱があり、「せかいをみにいく」から<strong>ぼうけんマップ</strong>へ。貯めた分だけマネコが進み、チェックポイントを越えるたびに景色が変わります。そしてコインが30枚たまったら<strong>プレゼント（衣装ガチャ）</strong>。6種類の衣装は「？？？」で隠れていて、開けるまで何が出るかわかりません。</p>
+
+    <h3>💼 おとなモード「マネコ家計簿」</h3>
+    <div class="app-shots app-shots--3">
+      <figure class="app-shot">
         <div class="media"><div class="media__fallback">💼</div><img class="media__img" src="assets/app/adult-home.png" alt="おとなモードのホーム画面" loading="lazy"></div>
-        <figcaption>おとなホーム — 今月あと使える額がひと目</figcaption>
+        <figcaption>おとなホーム — あと使える額がひと目</figcaption>
       </figure>
       <figure class="app-shot">
         <div class="media"><div class="media__fallback">🧾</div><img class="media__img" src="assets/app/kiroku.png" alt="きろく画面 レシート取込" loading="lazy"></div>
         <figcaption>きろく — レシートを撮るだけ</figcaption>
       </figure>
+      <figure class="app-shot">
+        <div class="media"><div class="media__fallback">📍</div><img class="media__img" src="assets/app/adult-map.png" alt="買い物マップ 地図のピン" loading="lazy"></div>
+        <figcaption>買い物マップ — どこで使ったかが残る</figcaption>
+      </figure>
     </div>
-    <ul>
-      <li><strong>🏘️ こどもモード「マネコタウン」</strong> — 3Dの街に住むマネコと一緒に記録。おさいふ・コイン・レベル・きょうのチャレンジ・ちょきん箱、コインで回す衣装ガチャ、そして貯金で世界が育つ「ぼうけんマップ」。おかいものメモには<strong>こども用のレシート取込</strong>もあります。</li>
-      <li><strong>💼 おとなモード「マネコ家計簿」</strong> — 落ち着いたトーン。「今月あと使える額」を大きく見せるカード＋予算バー＋つかいみち内訳。貯金目標は期限を決めると「毎月あと¥いくら」のペースまで教えてくれます。</li>
-    </ul>
-    <p>共通の機能として、<strong>レシートOCR（明細ごとの取り込み・自動ジャンル分け）</strong>、地図ピンでの「どこで使ったか」の記録、家族グループでの割り勘・精算、そして<strong>親子連携でのおこづかいのやり取り</strong>。PWA対応なので、ホーム画面に追加してアプリとして起動できます。</p>
+    <p>おとなは実用重視です。ホームの墨色カードに<strong>今月の支出と予算の残り</strong>が大きく出て、予算バー・つかいみちの内訳・最近の記録が続きます。貯金目標は期限を決めると「毎月あと¥いくら」のペースまで教えてくれます。</p>
+    <p>きろくの主役は<strong>レシートOCR</strong>。「レシートを読み取って自動入力」を押して撮るだけで明細が品目ごとに入り、ジャンルも自動で付きます。お店の住所が読み取れたときは<strong>地図にピンまで自動でセット</strong>。この地図まわりの機能はおとなモードだけのもので、レポートの<strong>買い物マップ</strong>から「どこで使ったか」を振り返れます。</p>
+
+    <h3>📊 ふりかえり（レポート）</h3>
+    <div class="app-shots app-shots--2">
+      <figure class="app-shot">
+        <div class="media"><div class="media__fallback">📅</div><img class="media__img" src="assets/app/kids-report.png" alt="こどものレポート カレンダー" loading="lazy"></div>
+        <figcaption>こどものレポート — 収入は緑の＋</figcaption>
+      </figure>
+      <figure class="app-shot">
+        <div class="media"><div class="media__fallback">📊</div><img class="media__img" src="assets/app/adult-report.png" alt="おとなのレポート ジャンル別内訳と月次推移" loading="lazy"></div>
+        <figcaption>おとなのレポート — 内訳と推移</figcaption>
+      </figure>
+    </div>
+    <p>レポートタブの主役は月のカレンダーです。使った日に金額が乗り、日付をタップすると明細と思い出写真がカードで開きます。おこづかいなどの収入は<strong>緑の＋マーク</strong>で表示されるので、こどもは「もらった・つかった」を1枚のカレンダーで振り返れます。</p>
+    <p>おとな側はさらに、<strong>ジャンル別の内訳（自動分類・あとから手直しOK）</strong>と直近6ヶ月の月次推移グラフ、そして買い物マップ。数字を打ち込むだけの家計簿ではなく、<strong>「撮って、育てて、振り返る」家計簿</strong>になりました。</p>
+
+    <p>このほか共通で、家族グループでの割り勘・精算、親子連携でのおこづかいのやり取りに対応。PWA対応なので、ホーム画面に追加してアプリとして起動できます。</p>
 
     <!-- ============ 6. 設計 ============ -->
     <h2 class="reveal">6. 設計の説明</h2>
