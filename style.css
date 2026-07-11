@@ -455,3 +455,10 @@ body.is-ready .hero__art { opacity: 1; transform: none; }
 @media (max-width: 720px) {
   .app-shots--3, .app-shots--2 { grid-template-columns: repeat(2, 1fr); max-width: 420px; }
 }
+
+/* 連絡先の可視表示 */
+.mail-note { font-size: 13px; color: var(--ink-soft); margin: 2px 0 0; }
+.mail-note a { color: var(--accent-ink); font-weight: 700; text-decoration: none; }
+.mail-note a:hover { text-decoration: underline; }
+.lp-cta__mail { margin: 14px 0 0; font-size: 14px; opacity: .85; }
+.lp-cta__mail a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
