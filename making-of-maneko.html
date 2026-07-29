@@ -3,161 +3,330 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>マネコ家計簿を作った話 — tomjo</title>
-  <meta name="description" content="3Dキャラと暮らす家計簿「マネコ家計簿」の制作記。テーマ・設計・こだわり・つまずき・学びを、作った本人の言葉で。" />
+  <title>マネコ家計簿 — 旅行家計簿からApp Store公開まで | tomjo</title>
+  <meta name="description" content="支出を記録し、目標へ貯金すると、マネコと3Dの街が育っていくiOS家計簿アプリ。旅行家計簿から方向転換し、家族共有・レシート読取・App Store公開まで育てた制作記。" />
+  <meta property="og:title" content="マネコ家計簿 — 旅行家計簿からApp Store公開まで" />
+  <meta property="og:description" content="記録するほど、街とマネコが変わっていく。個人でも家族でも使えるiOS家計簿アプリの制作記。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="assets/maneko-latest.webp" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div class="report-banner">
-    この記事は <b>2026年 実践のためのWebプログラミング</b> のレポート課題です。
+    <b>2026年　実践のためのWebプログラミングのレポート課題です</b>
   </div>
 
-  <article class="article">
+  <article class="article article--maneko">
     <a class="article__back" href="index.html">← つくったもの一覧へ</a>
 
-    <p class="eyebrow">Making of · 制作記</p>
-    <h1>マネコ家計簿を作った話</h1>
-    <p class="article__dek">この家計簿、最初は“旅行専用のアプリ”でした。作っている途中で「これ、使われなくない？」と気づいて、全部ひっくり返した記録です。</p>
+    <p class="eyebrow">Product story · 2026</p>
+    <h1>記録するほど、<br>マネコと街が育っていく。</h1>
+    <p class="article__dek">
+      「家計簿は必要だけど、記録だけでは続かない」。その問題を、貯金目標と3Dの街、
+      そして相棒のマネコで解こうとしたiOSアプリです。
+    </p>
     <div class="article__meta">
-      <span>2026年7月</span><span>Web / TypeScript / three.js / Claude API</span>
+      <span>2026年7月 更新</span>
+      <span>iOS / TypeScript / Expo / PostgreSQL / AI OCR</span>
     </div>
 
-    <figure class="article__hero media">
-      <div class="media__fallback">🐱</div>
-      <img class="media__img" src="assets/article-hero.jpg" alt="貯金箱にコインを入れる親子の手と招き猫" loading="eager">
-    </figure>
-
-    <!-- ============ 1. きっかけ ============ -->
-    <h2 class="reveal">1. 最初に作っていたのは、ぜんぜん違うアプリだった</h2>
-    <p>「マネコ家計簿」は、招き猫のキャラクター「マネコ」と一緒に、家族みんなでお金を管理できる家計簿Webアプリです。</p>
-    <p>……なんですが、最初からこれを作ろうとしていたわけではありません。出発点は<strong>「旅行用の家計簿」</strong>でした。</p>
-    <p>以前、旅の思い出を写真と一緒に残せる家計簿アプリ<strong>「タビカケ」</strong>を作ったとき、“写真で思い出が残ると、家計簿をつけるのが意外と楽しい”という手応えがありました。それが気に入って、今回も旅行中に写真を添えて記録して、あとでアルバムや振り返りレポートが作れる——そんなアプリとして作り始めたんです。</p>
-    <p>でも、作りながらどんどん引っかかっていきました。</p>
-    <blockquote class="reveal">旅行のときしか使わないアプリは、市場が小さい。そもそも——<strong>普段の生活で使えない家計簿って、使われなくない？</strong></blockquote>
-    <p>ここで一度、全部ひっくり返しました。「旅行の記録」を捨てて、<strong>「毎日使われる家計簿」</strong>を作り直す。この方向転換が、マネコ家計簿の本当のスタート地点です。そこから先は、3つの問いに順番に答えていく作業でした。</p>
-
-    <!-- ============ 2. 問い① ============ -->
-    <h2 class="reveal">2. 問い① 「毎日使える」ってなんだ？ — 答えはレシートだった</h2>
-    <p>毎日使うことを考えたとき、まず気になったのが記録の「粗さ」です。スーパーで合計金額だけ入力しても、あとで見返すと「これ、何を買ったんだっけ？」。外食で何品も頼めば、どの料理がいくらだったかは残らない。<strong>金額だけの家計簿は、記録としてほとんど何も語らない</strong>んです。</p>
-    <p>だったら、レシートをそのまま取り込めばいい。撮るだけで品目ごとに読み取って、勝手にジャンル分けまでしてくれれば、手で打つより速いし、「何を買ったか」まで残ります。ここをこのアプリの心臓部にすると決めました。</p>
-    <p>ただ、最初の実装は失敗しました。AIを使わず、ブラウザで動くOCRライブラリ（Tesseract.js）で試したのですが、レシートの細かい文字とレイアウトがまるで読めず、全然うまくいきません。</p>
-    <p>そこで<strong>Claudeの画像認識（Haikuモデル）</strong>に切り替えたところ、状況が一変。レシートの情報を、基本的にほぼすべて取り込めるようになりました。レシートを宙に浮かせて撮ると少しズレが出ることはありますが、精度は十分に実用レベル。「OCRエンジンを自前で頑張るより、画像認識AIに任せる」——この判断で、アプリの核ができました。</p>
-    <p>ちなみにこのOCRは、その後も進化しています。運用コストを下げるため、現在は無料枠のある<strong>Gemini</strong>を優先で使い、ダメなときだけClaudeに切り替えるフォールバック構成に。さらにレシートから<strong>お店の住所まで読み取って、地図に自動でピンを立てる</strong>ところまでできるようになりました。</p>
-
-    <!-- ============ 3. 問い② ============ -->
-    <h2 class="reveal">3. 問い② 子どもが“続けたくなる”には？</h2>
-    <p>次の問いは「継続」です。家計簿はとにかく続きません。大人ですらそうなのに、子どもに記録を続けてもらうにはどうするか。</p>
-    <p>出した答えはシンプルです。<strong>楽しくないと続かない。そして楽しさには「変化」が要る。</strong>何かが変わっていくから、次が見たくなる。</p>
-    <p>そこで、こどもモードには招き猫から名前を取ったキャラクター「マネコ」を主役に置き、貯金が進むほど世界が育つ縦スクロールの<strong>「ぼうけんマップ」</strong>を作りました。<strong>びんぼう長屋 → かけだしの町 → にぎわい商店街 → 大都会タワマン → 黄金の都</strong>。目標ごとにマップがあり、貯めるほど景色がにぎやかになって、ホームの街並みもステージに合わせて育っていきます。</p>
-    <p>さらに、記録やチャレンジで貯まるコインで回せる<strong>衣装ガチャ</strong>も用意しました。しっぽリボンやふうせん、レアな金のオーラまで全6種類。着せ替えたマネコはホームにもマップにも反映されます。「記録＝作業」を「記録＝冒険が進む」に変える仕掛けです。</p>
-
-    <!-- ============ 4. 問い③ ============ -->
-    <h2 class="reveal">4. 問い③ 家族のお金を、ひとつに</h2>
-    <p>最後の問いは「誰のための家計簿か」。子どもが楽しく使えるモードと、大人が便利に使えるモードを作るなら、その2つはつながるべきだと思いました。</p>
-    <p>マネコ家計簿では、<strong>連携コード</strong>で親子のアカウントをつなげます。親がおこづかいを送ると、子どもの画面には全画面のお祝い演出つきで「おこづかいが届いたよ！」の通知が届き、そのまま自分のおこづかい帳に記録されていく。子どもは小さいころから楽しくお金の管理を覚えて、親は子どものお金の使い方を見守りながら、自分の家計もまとめて管理する。個人の家計簿ではなく、<strong>世帯の家計簿をひとつのアプリで</strong>——それがこのアプリの着地点です。</p>
-    <p>3つの問いを抜けて、作りたいものは一行にまとまりました。</p>
-    <p class="pull">子どもには楽しく、大人には便利に。</p>
-
-    <!-- ============ 5. サービスの説明 ============ -->
-    <h2 class="reveal">5. できあがったもの — サービスの説明</h2>
-    <p>初回ログインで「こども」「おとな」の2つのモードを選びます。同じ家計データを、別の見た目で使えます。</p>
-
-    <h3>🏘️ こどもモード「マネコタウン」</h3>
-    <div class="app-shots app-shots--3">
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">🏘️</div><img class="media__img" src="assets/app/kids-home.png" alt="こどもモードのホーム画面 マネコタウン" loading="lazy"></div>
-        <figcaption>こどもホーム — 街とマネコが育つ</figcaption>
-      </figure>
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">🗺️</div><img class="media__img" src="assets/app/journey.png" alt="貯金で世界が育つ ぼうけんマップ" loading="lazy"></div>
-        <figcaption>ぼうけんマップ — 貯金で世界がひろがる</figcaption>
-      </figure>
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">🎁</div><img class="media__img" src="assets/app/gacha.png" alt="衣装ガチャ プレゼント画面" loading="lazy"></div>
-        <figcaption>プレゼント — コイン30枚で衣装ガチャ</figcaption>
+    <div class="maneko-hero">
+      <div class="maneko-hero__copy">
+        <span class="maneko-hero__label">MANEKO</span>
+        <p>支出・収入を記録する。目標へ少しずつ貯める。その積み重ねが、街の景色とマネコの旅に変わります。</p>
+        <div class="maneko-hero__actions">
+          <a class="app-store-button" href="https://apps.apple.com/app/id6793989724" target="_blank" rel="noopener">
+            <span aria-hidden="true"></span>
+            <span><small>Download on the</small>App Store</span>
+          </a>
+          <a class="btn btn--ghost" href="https://www.maneko-app.com" target="_blank" rel="noopener">Web版を見る</a>
+        </div>
+      </div>
+      <figure class="maneko-hero__shot media">
+        <div class="media__fallback">🐱</div>
+        <img class="media__img" src="assets/maneko-latest.webp" alt="マネコ家計簿の街ホーム画面" loading="eager" />
       </figure>
     </div>
-    <p>ホームは3Dの街です。おさいふ・コイン・レベル・ごきげんメーター・きょうのチャレンジが並び、記録をつけるとコインやXPが貯まります。街並みは貯金のステージに合わせて「びんぼう長屋」から少しずつにぎやかに育ち、マネコの衣装も変わります。</p>
-    <p>きろくは「おかいものメモ」。金額とジャンルを選ぶだけのかんたん入力に加えて、こども用の<strong>レシート取込</strong>も用意しました。読み取った品物が、そのままメモの行に流し込まれます。</p>
-    <p>ちょきんタブには目標ごとのちょきん箱があり、「せかいをみにいく」から<strong>ぼうけんマップ</strong>へ。貯めた分だけマネコが進み、チェックポイントを越えるたびに景色が変わります。そしてコインが30枚たまったら<strong>プレゼント（衣装ガチャ）</strong>。6種類の衣装は「？？？」で隠れていて、開けるまで何が出るかわかりません。</p>
 
-    <h3>💼 おとなモード「マネコ家計簿」</h3>
-    <div class="app-shots app-shots--3">
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">💼</div><img class="media__img" src="assets/app/adult-home.png" alt="おとなモードのホーム画面" loading="lazy"></div>
-        <figcaption>おとなホーム — あと使える額がひと目</figcaption>
+    <nav class="article-toc" aria-label="記事内の目次">
+      <a href="#origin">テーマ・作った理由</a>
+      <a href="#axis">設計・こだわり</a>
+      <a href="#experience">サービス説明</a>
+      <a href="#family">共有と家族</a>
+      <a href="#release">App Store公開</a>
+      <a href="#learning">難しかったこと・学び</a>
+    </nav>
+
+    <section id="origin">
+      <h2 class="reveal">1. テーマと、作ろうと思った理由</h2>
+      <p>
+        この制作のテーマは、<strong>「お金の記録を、続けたくなる体験へ変えること」</strong>です。
+        家計簿は生活に必要ですが、数字を入力してグラフを見るだけでは、記録そのものが負担になりやすいと感じていました。
+        そこで、支出を記録したり目標へ貯金したりする行動が、3Dの街の成長やマネコの旅として目に見えるアプリを考えました。
+      </p>
+      <p>
+        最初に作っていたのは、旅行やイベントごとに支出をまとめ、レシートの明細を参加者へ割り当てる
+        <strong>「TabiWari」</strong>でした。写真や場所を残し、あとで旅を振り返れるアプリです。
+      </p>
+      <p>
+        ただ、作り込むほど一つの疑問が大きくなりました。旅行のときだけ使うアプリは、
+        日常では開かれない。せっかく作るなら、もっと普段の生活で役に立つものにしたい。
+      </p>
+      <blockquote class="reveal">
+        「旅行の記録」を中心にするのではなく、<strong>毎日のお金との付き合い方を少し楽しくする</strong>。
+        ここから、家計簿そのものを作り直しました。
+      </blockquote>
+      <p>
+        日常家計簿、複数人で使う共有スペース、親子のおこづかい管理へ拡張しながら、
+        画面も2Dの試作から3Dの「マネコタウン」へ全面的に変更しました。
+      </p>
+      <p>
+        自分自身も、家計簿は「入力しなければならないもの」になると続きませんでした。
+        だからこそ、正しさや機能数だけでなく、アプリを開いたときに少し気分が上がり、
+        次の街を見たいからもう一度記録したくなることを目標にしました。
+      </p>
+    </section>
+
+    <section id="axis">
+      <h2 class="reveal">2. 設計と、自分なりにこだわった点</h2>
+      <p>
+        対象は、小学校高学年くらいから高校生、そして大人まで。
+        子ども向けに言葉を幼くしすぎず、大人向けに数字だけの無機質な画面にもしない。
+        年齢をまたいで使える一つの体験を目指しました。
+      </p>
+      <p>
+        一番こだわったのは、要望をそのまま全部足すのではなく、<strong>「機能を増やしすぎない」</strong>ことです。
+        記録・把握・貯金という中心から離れる機能は、作れても最初のリリースでは表示しない判断をしました。
+        例えば買い物マップは実装途中まで進めましたが、記録画面が複雑になるため公開版ではいったん外しています。
+      </p>
+      <div class="principles">
+        <div class="principle reveal">
+          <span>01</span>
+          <h3>記録は短く</h3>
+          <p>手入力に加え、レシートから商品名と費目を読み取り、あとから直せるようにする。</p>
+        </div>
+        <div class="principle reveal">
+          <span>02</span>
+          <h3>貯金を変化にする</h3>
+          <p>目標へ貯めた割合が、街並みとマネコの旅として目に見える。</p>
+        </div>
+        <div class="principle reveal">
+          <span>03</span>
+          <h3>共有は必要なときだけ</h3>
+          <p>個人利用を基本にし、夫婦・カップル・家族の家計簿をあとから追加できる。</p>
+        </div>
+        <div class="principle reveal">
+          <span>04</span>
+          <h3>自分の領域を守る</h3>
+          <p>親子連携しても、親と子の個人家計簿は自動で公開しない。</p>
+        </div>
+      </div>
+      <p class="pull">記録する。把握する。貯める。変化を楽しむ。</p>
+    </section>
+
+    <section id="experience">
+      <h2 class="reveal">3. サービスの説明 — 現在のマネコ家計簿</h2>
+      <p>
+        以前は「こどもモード」と「おとなモード」を分けていました。現在はその分け方をやめ、
+        マネコタウンの世界観へ統一しています。背景全体を3Dの街にし、その上に必要な情報だけをカードで重ねました。
+      </p>
+
+      <div class="feature-story feature-story--wide">
+        <div class="feature-story__text">
+          <p class="eyebrow">Town</p>
+          <h3>ホームは、家計簿ではなく「街」</h3>
+          <p>
+            今月の支出と、あと使える金額、現在の貯金目標をすぐ確認できます。
+            風景をタップするとカードを隠し、町並みとマネコだけを眺められます。
+          </p>
+        </div>
+        <figure class="app-shot app-shot--large reveal">
+          <div class="media"><div class="media__fallback">🏘️</div><img class="media__img" src="assets/app/maneko-01-town.webp" alt="3Dの街とマネコが表示されたホーム画面" loading="lazy"></div>
+          <figcaption>記録と貯金の状況が、街の景色へつながるホーム</figcaption>
+        </figure>
+      </div>
+
+      <div class="app-shots app-shots--2 maneko-shots">
+        <figure class="app-shot reveal">
+          <div class="media"><div class="media__fallback">🧾</div><img class="media__img" src="assets/app/maneko-02-record.webp" alt="支出記録とレシート読み取り画面" loading="lazy"></div>
+          <figcaption><b>支出を記録</b><br>レシート読取、商品別の費目、自動分類</figcaption>
+        </figure>
+        <figure class="app-shot reveal">
+          <div class="media"><div class="media__fallback">🐷</div><img class="media__img" src="assets/app/maneko-03-savings.webp" alt="目標貯金の画面" loading="lazy"></div>
+          <figcaption><b>目標へ貯金</b><br>複数目標の作成・編集・切り替え</figcaption>
+        </figure>
+      </div>
+
+      <h3>レシートを、合計金額だけで終わらせない</h3>
+      <p>
+        レシートを読み取ると、複数の商品名と金額を取り込み、商品ごとに食費・日用品などの費目を自動で割り振ります。
+        間違っていれば、その場でプルダウンから変更できます。手入力でも商品名を残せます。
+      </p>
+      <p>
+        支出だけでなく収入も記録でき、現在の財布残高をレポートの先頭に表示します。
+        カレンダーでは収入にプラス、支出にマイナスを付け、日付から記録の編集・削除へ戻れます。
+      </p>
+
+      <div class="app-shots app-shots--2 maneko-shots">
+        <figure class="app-shot reveal">
+          <div class="media"><div class="media__fallback">📊</div><img class="media__img" src="assets/app/maneko-04-report.webp" alt="支出の内訳を表示するレポート画面" loading="lazy"></div>
+          <figcaption><b>レポート</b><br>費目、月次、カレンダーで振り返る</figcaption>
+        </figure>
+        <figure class="app-shot reveal">
+          <div class="media"><div class="media__fallback">🗺️</div><img class="media__img" src="assets/app/maneko-05-journey.webp" alt="貯金の進捗に合わせてマネコが進む旅画面" loading="lazy"></div>
+          <figcaption><b>マネコの旅</b><br>貯めた分だけ道を進み、世界が変わる</figcaption>
+        </figure>
+      </div>
+
+      <h3>貯金を「数字」から「旅」へ</h3>
+      <p>
+        目標額に対する貯金の割合に合わせ、町は少しずつ賑やかになります。
+        旅の画面では、マネコが道に沿って次の街へ進みます。目標が複数あるときは横スワイプで切り替えられます。
+      </p>
+      <p>
+        衣装を選ぶと、どの街でもその服を着たマネコが登場します。春夏秋冬の衣装は、
+        帽子や服を無理に重ねるのではなく、衣装を着たマネコ全体を一枚ずつ作り込みました。
+      </p>
+    </section>
+
+    <section id="family">
+      <h2 class="reveal">4. ひとりでも、夫婦でも、家族でも</h2>
+      <p>
+        一つのアカウントで、個人用・夫婦用・家族用など複数の家計簿スペースを持てます。
+        一つの支出を複数スペースへ同時に保存したり、レポートで複数スペースをまとめて見たりできます。
+      </p>
+      <p>
+        共有家計簿では「誰が払ったか」を記録します。一方で「誰が入力したか」は前面に出しません。
+        必要なのは、入力者を監視することではなく、お金の流れを一緒に把握することだと考えたからです。
+      </p>
+      <h3>親子連携は、共有家計簿とは別に設計</h3>
+      <p>
+        親は招待URLを発行し、おこづかいを送ったり、お手伝いとポイントを設定したりできます。
+        子どもは用意されたお手伝いから選んで申請し、親が承認します。
+      </p>
+      <p>
+        ただし、親子でつながっただけでは、子どもの個人家計簿を親へ自動公開しません。
+        「家族で使う」と「自分のお金を管理する」を分けることは、現在の重要な設計方針です。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="reveal">5. 登録しなくても、まず始められる</h2>
+      <p>
+        最初はメールアドレスもパスワードも不要です。「登録せずに試す」から、個人家計簿とマネコタウンをすぐ始められます。
+      </p>
+      <p>
+        共有機能や別端末での利用が必要になったら、その時点でメールアドレス、表示名、パスワードを登録します。
+        ゲスト時代と同じ内部ユーザーを正式アカウントへ切り替えるため、記録・目標・購入情報はそのまま残ります。
+      </p>
+      <figure class="app-shot app-shot--solo reveal">
+        <div class="media"><div class="media__fallback">⚙️</div><img class="media__img" src="assets/app/maneko-06-settings.webp" alt="プロフィール、通知、表示、アカウントを整理した設定画面" loading="lazy"></div>
+        <figcaption>設定はプロフィール・通知・表示・アカウントへ整理</figcaption>
       </figure>
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">🧾</div><img class="media__img" src="assets/app/kiroku.png" alt="きろく画面 レシート取込" loading="lazy"></div>
-        <figcaption>きろく — レシートを撮るだけ</figcaption>
-      </figure>
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">📍</div><img class="media__img" src="assets/app/adult-map.png" alt="買い物マップ 地図のピン" loading="lazy"></div>
-        <figcaption>買い物マップ — どこで使ったかが残る</figcaption>
-      </figure>
+    </section>
+
+    <section id="release">
+      <h2 class="reveal">6. Webアプリから、App Storeへ</h2>
+      <p>
+        画面とAPIはTypeScript、Express、PostgreSQLで作り、Vercelで配信しています。
+        iOSアプリはExpoのWebViewを土台にしながら、App Store課金、Deep Link、Google Mapsなど、
+        ネイティブで必要な部分だけを橋渡ししました。
+      </p>
+      <div class="tech-grid">
+        <div><b>UI</b><span>TypeScript / CSS / 3D image assets</span></div>
+        <div><b>API</b><span>Node.js / Express / Vercel</span></div>
+        <div><b>Data</b><span>PostgreSQL / Neon</span></div>
+        <div><b>iOS</b><span>Expo / React Native WebView</span></div>
+        <div><b>Purchase</b><span>RevenueCat / App Store IAP</span></div>
+        <div><b>Email</b><span>Resend / 独自ドメイン</span></div>
+      </div>
+      <p>
+        課金はレシート読取回数を増やす「マネコプラス」と家族プラン、
+        買い切りの目標アイコン・季節衣装を用意しています。
+        無料でも体験の中心は使え、必要な人が拡張できる形です。
+      </p>
+      <p>
+        App Store提出では、iPhoneとiPadのスクリーンショット、プライバシー申告、
+        購入の復元、利用規約、審査用アカウントまで一つずつ整備しました。
+        一度は利用規約リンク不足で自動却下されましたが、原因を直して再提出し、公開まで進めました。
+      </p>
+    </section>
+
+    <section id="learning">
+      <h2 class="reveal">7. 難しかったこと・学んだこと</h2>
+      <h3>「動く」と「使いやすい」は別だった</h3>
+      <p>
+        下部タブがsafe areaに隠れる、背景の上に古い台紙が残る、貯金画面がスクロールできない、
+        画像の切り抜きに別のアイコンが混ざる。実機で初めて見つかる問題が何度もありました。
+      </p>
+      <p>
+        特に、AIが「実装できた」と判断しても、実際に触ると押されたのか分からなかったり、
+        保存中に画面が止まって見えたりします。着せ替えも、選ぶたび保存する実装から、
+        画面内では即座に試し、移動するときだけ保存する操作へ変えました。
+      </p>
+      <p>
+        難しかったのは、一つの不具合を直すと別の画面で余白やタブ位置が崩れることでした。
+        Web版だけを見て判断せず、Expo Goと実機のスクリーンショットで確認し、
+        「押した直後に反応が返るか」「保存が終わるまで状態が分かるか」まで確かめるようにしました。
+        コードがエラーなく動くことと、利用者が安心して操作できることは別だと実感しました。
+      </p>
+      <h3>デザインは、部分ではなく画面全体で確認する</h3>
+      <p>
+        マネコ、カード、背景、タブを別々に見ると成立していても、一つのiPhone画面へ置くと崩れる。
+        そのため、Expo Goと実機スクリーンショットを基準に、余白、重なり、スクロール、タップ領域を調整しました。
+      </p>
+      <h3>方向転換では、既存ユーザーを置き去りにしない</h3>
+      <p>
+        認証方式や画面構成を変えても、すでに使っている人の記録を消さないことが最優先です。
+        ゲストから正式登録へ切り替えても同じIDを維持する設計は、その反省から生まれました。
+      </p>
+      <h3>AIに任せきらず、自分で判断する</h3>
+      <p>
+        AIは実装や案出しを速くしてくれましたが、どの機能を残すか、誰のための画面か、
+        本当に使いやすいかは自分で決める必要がありました。生成された画像もそのまま使わず、
+        アイコンの切れや衣装の不自然さを実機で確認して作り直しています。
+        AIから出てきた答えを完成品と考えず、試して、違和感を言葉にして、直すことが自分の役割だと学びました。
+      </p>
+      <h3>感想 — 完成・公開して感じたこと</h3>
+      <p>
+        最初は授業課題として始めた小さなWebアプリが、独自ドメインやメール認証、課金、
+        App Store審査まで必要なサービスへ育ったことに、自分でも驚いています。
+        一方で、公開した瞬間に完成するのではなく、実際の利用者が見つけた不具合を直して初めて
+        サービスになっていくことも感じました。作る技術だけでなく、使い続けてもらう責任まで含めて
+        プロダクト開発なのだと思います。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="reveal">8. 現在地と、これから</h2>
+      <p>
+        マネコ家計簿はApp Storeへ公開できました。ただ、公開は完成ではなく、
+        実際に使ってもらいながら「本当に中心にする体験は何か」をもう一度考える段階だと思っています。
+      </p>
+      <p>
+        親子の金融教育を中心にするのか、個人の貯金習慣を中心にするのか。
+        家族共有を最初から見せるのか、必要になってから出すのか。
+        これからも機能を増やす前に、マネコがいるから記録と貯金を続けられる、という核を磨いていきます。
+      </p>
+      <p class="pull">作ったというより、使いながら育て続けているアプリです。</p>
+    </section>
+
+    <div class="article-cta reveal">
+      <div>
+        <p class="eyebrow">Available on iPhone & iPad</p>
+        <h2>マネコと、今日から始める。</h2>
+        <p>個人利用は登録なしでも試せます。</p>
+      </div>
+      <div class="article-cta__actions">
+        <a class="app-store-button" href="https://apps.apple.com/app/id6793989724" target="_blank" rel="noopener">
+          <span aria-hidden="true"></span>
+          <span><small>Download on the</small>App Store</span>
+        </a>
+        <a class="btn btn--ghost" href="https://www.maneko-app.com" target="_blank" rel="noopener">Web版</a>
+      </div>
     </div>
-    <p>おとなは実用重視です。ホームの墨色カードに<strong>今月の支出と予算の残り</strong>が大きく出て、予算バー・つかいみちの内訳・最近の記録が続きます。貯金目標は期限を決めると「毎月あと¥いくら」のペースまで教えてくれます。</p>
-    <p>きろくの主役は<strong>レシートOCR</strong>。「レシートを読み取って自動入力」を押して撮るだけで明細が品目ごとに入り、ジャンルも自動で付きます。お店の住所が読み取れたときは<strong>地図にピンまで自動でセット</strong>。この地図まわりの機能はおとなモードだけのもので、レポートの<strong>買い物マップ</strong>から「どこで使ったか」を振り返れます。</p>
 
-    <h3>📊 ふりかえり（レポート）</h3>
-    <div class="app-shots app-shots--2">
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">📅</div><img class="media__img" src="assets/app/kids-report.png" alt="こどものレポート カレンダー" loading="lazy"></div>
-        <figcaption>こどものレポート — 収入は緑の＋</figcaption>
-      </figure>
-      <figure class="app-shot">
-        <div class="media"><div class="media__fallback">📊</div><img class="media__img" src="assets/app/adult-report.png" alt="おとなのレポート ジャンル別内訳と月次推移" loading="lazy"></div>
-        <figcaption>おとなのレポート — 内訳と推移</figcaption>
-      </figure>
-    </div>
-    <p>レポートタブの主役は月のカレンダーです。使った日に金額が乗り、日付をタップすると明細と思い出写真がカードで開きます。おこづかいなどの収入は<strong>緑の＋マーク</strong>で表示されるので、こどもは「もらった・つかった」を1枚のカレンダーで振り返れます。</p>
-    <p>おとな側はさらに、<strong>ジャンル別の内訳（自動分類・あとから手直しOK）</strong>と直近6ヶ月の月次推移グラフ、そして買い物マップ。数字を打ち込むだけの家計簿ではなく、<strong>「撮って、育てて、振り返る」家計簿</strong>になりました。</p>
-
-    <p>このほか共通で、家族グループでの割り勘・精算、親子連携でのおこづかいのやり取りに対応。PWA対応なので、ホーム画面に追加してアプリとして起動できます。</p>
-
-    <!-- ============ 6. 設計 ============ -->
-    <h2 class="reveal">6. 設計の説明</h2>
-    <p>授業の指定に沿って、フロント＝素のTypeScript（フレームワークなしのDOM操作）、バック＝Node.js + Express、DB＝PostgreSQL の3層構成です。GitHubにpushするとRenderへ自動デプロイされ、DBにはNeonを使っています。</p>
-    <ul>
-      <li><strong>フロント</strong>：<code>src/client/</code>。402×840のスマホ画面をキャンバスに見立て、素のDOMで描画。ホームは絶対配置＋scale、他のタブは内側だけスクロールさせる切り分け。</li>
-      <li><strong>サーバ</strong>：<code>index.ts / api.ts / auth.ts / ocr.ts</code>。cookieセッション認証、家族グループ、親子連携（連携コード）、レシートOCR。</li>
-      <li><strong>レシートOCR</strong>：無料枠のあるGeminiを優先し、失敗したらClaudeにフォールバック。住所も抽出してジオコーディングし、地図ピンまで自動でセット。</li>
-      <li><strong>ジャンル分け</strong>：AI任せにせず、店名・品名の<strong>ルールベース</strong>で判定（スーパーの食材は「食料品」、ドラッグストアは「日用品」など）。ルールは50件超の回帰テストで守っています。</li>
-      <li><strong>3Dのマネコ</strong>：<code>character.ts</code> で、招き猫のデザインを three.js を使ってホーム画面に配置（キャラのデザイン自体はAIに作ってもらったものを取り込みました）。</li>
-      <li><strong>こども／おとなの2モードを1コードで</strong>：同じ家計データを、ログインユーザーの権限設定で出し分け。</li>
-      <li><strong>PWA対応</strong>：manifest ＋ Service Worker で app shell をオフラインキャッシュ。<code>?v=N</code> でアセットをバージョニング。</li>
-    </ul>
-
-    <!-- ============ 7. うまくいかなかったこと ============ -->
-    <h2 class="reveal">7. うまくいかなかったこと</h2>
-    <p>正直、最初からうまくいったわけではありません。むしろ失敗の連続でした。</p>
-    <h3>デザインを“再現できない”</h3>
-    <blockquote class="reveal">マネコのデザインは用意されていたのに、最初はそれを自己流に“解釈”して作ってしまい、「全然違う。忠実に再現して」と差し戻された。</blockquote>
-    <p>デザインがあるのに再現できないのか、と最初はがっかりしました。でも、<strong>使うAIモデルを変え、指示の出し方も「デザインに忠実に再現して」と変えて</strong>投げ直したら、今度はきちんと再現できた。あのときは素直に嬉しかったです。正解が手元にあるときは、我流で解釈せず、まず忠実に再現する——という当たり前を学びました。</p>
-    <h3>「AIがOK」でも、使うとバグだらけ</h3>
-    <blockquote class="reveal">整ったデモアカウントでは動くのに、新規ユーザーが最初に触る画面はバグだらけだった（エラーでホームごと落ちてマネコが出ない、記録までの手順が多すぎる、など）。</blockquote>
-    <p>これは実際に自分で踏みました。<strong>AIが「確認してOK」と言っても、実際に使ってみるとバグが出る</strong>——これは他のアプリを作っているときから感じていたことです。なので慌てず、原因を落ち着いて切り分けて、フィードバックして直す。一度の会話ですべて片付くことは稀なので、それを何度も繰り返しながら、少しずつ理想の形に近づけていきました。</p>
-
-    <!-- ============ 8. 学び ============ -->
-    <h2 class="reveal">8. 学びになったこと</h2>
-    <p><strong>技術面</strong>で新しかったのは、デプロイ先の <strong>Render</strong> と、データベースの <strong>Neon（PostgreSQL）</strong>を初めて使ったことです。デプロイやDBまわりの手数が増えたのは、素直に良い経験でした。それ以外の実装は、これまでのアプリ開発で積み上げてきた知識でだいたい対応できました。</p>
-    <p>むしろ大きかったのは<strong>作り方・進め方の学び</strong>です。ひとつは、<strong>使うAIモデルや指示の出し方で、出てくるものの質がここまで変わるのか</strong>という驚き。開発の途中でモデルを変えたら、完成度が段違いになりました。もうひとつは、<strong>AIが「OK」と言っても、自分で実際に使うまでは完成じゃない</strong>ということ。この2つは、今後どんなものを作るときにも効いてくる学びだと思います。</p>
-
-    <!-- ============ 9. 感想 ============ -->
-    <h2 class="reveal">9. 感想 — 作るというより、育てる</h2>
-    <p>振り返ると、<strong>最初からいいものが作れたわけではないし、コンセプトも最初は全然違いました</strong>。それを何度も考え直しながら、少しずつ自分のイメージに合う形へ近づけていく——作るというより、<strong>「育てる」</strong>に近い感覚でした。うまくいかない前提で、方向転換もバグ潰しも繰り返す。その過程そのものが、いちばん面白かったところかもしれません。</p>
-    <p>これからは、<strong>決済連携で明細を自動で取り込めるようにしたり、月次レポートをA4などで出力できるようにしたり</strong>と、もっと「日常でちゃんと使える家計簿」に育てていきたいです。</p>
-
-    <hr />
-
-    <h2 class="reveal">リンク</h2>
-    <ul>
-      <li>🐱 アプリ（デモ）：<a href="https://tabiwari-dacx.onrender.com" target="_blank" rel="noopener">tabiwari-dacx.onrender.com</a></li>
-      <li>💻 GitHub：<a href="https://github.com/tomjoepatience-lab/tabiwari" target="_blank" rel="noopener">github.com/tomjoepatience-lab/tabiwari</a></li>
-    </ul>
-
-    <p style="margin-top:40px"><a class="article__back" href="index.html">← つくったもの一覧へ</a></p>
   </article>
 
   <script src="site.js" defer></script>
