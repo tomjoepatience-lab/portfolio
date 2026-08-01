@@ -5,6 +5,19 @@
 (function () {
   'use strict';
 
+  // ---------- Cloudflare Web Analytics ----------
+  // 公開ページ共通の site.js から読み込み、内部モックは計測しない。
+  function initAnalytics() {
+    if (document.querySelector('script[data-cf-beacon]')) return;
+    var beacon = document.createElement('script');
+    beacon.type = 'module';
+    beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    beacon.setAttribute('data-cf-beacon', '{"token":"1b050f1c80e1463d88fe236bc9c2556e"}');
+    document.head.appendChild(beacon);
+  }
+
+  initAnalytics();
+
   // JS 有効: no-js を外す（.no-js の初期非表示解除ルールが無効になる）
   document.documentElement.classList.remove('no-js');
 
