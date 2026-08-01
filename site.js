@@ -176,6 +176,23 @@
     });
   }
 
+  // ---------- 7. アプリカード全体を詳細ページへのリンクに ----------
+  function initCardLinks() {
+    forEach(document.querySelectorAll('.card[data-href]'), function (card) {
+      function openCard(e) {
+        if (e.target.closest && e.target.closest('a')) return;
+        window.location.href = card.getAttribute('data-href');
+      }
+      card.addEventListener('click', openCard);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCard(e);
+        }
+      });
+    });
+  }
+
   // ---------- 起動 ----------
   function init() {
     initMedia();
@@ -184,6 +201,7 @@
     initNavScrolled();
     initNavActive();
     initFilter();
+    initCardLinks();
     initHeroEntrance();
   }
 
