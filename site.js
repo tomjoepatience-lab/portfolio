@@ -113,7 +113,7 @@
   // ---------- 5b. ナビ: 現在地ハイライト ----------
   function initNavActive() {
     if (!('IntersectionObserver' in window)) return;
-    var ids = ['products', 'works', 'about'];
+    var ids = ['products', 'apps', 'websites', 'about'];
     var links = {};
     var ratios = {};
     var sections = [];

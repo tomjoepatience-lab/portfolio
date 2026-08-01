@@ -38,7 +38,10 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font);
-  background: var(--paper);
+  background:
+    linear-gradient(color-mix(in srgb, var(--paper) 82%, transparent), color-mix(in srgb, var(--paper) 92%, transparent)),
+    url("assets/portfolio-bg-v2.png") center top / cover fixed no-repeat,
+    var(--paper);
   color: var(--ink);
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
@@ -80,7 +83,7 @@ img { max-width: 100%; display: block; }
 /* ---------- 共通レイアウト ---------- */
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 clamp(16px, 5vw, 40px); }
 section { padding: clamp(56px, 9vw, 100px) 0; }
-.section-alt { background: var(--paper-2); }
+.section-alt { background: color-mix(in srgb, var(--paper-2) 88%, transparent); backdrop-filter: blur(8px); }
 .eyebrow {
   font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
   color: var(--accent-ink); margin: 0 0 10px;
@@ -198,6 +201,7 @@ h2.section-title { font-size: clamp(24px, 4vw, 34px); margin: 0 0 8px; letter-sp
 }
 .badge--web { background: var(--web); }
 .badge--ios { background: var(--ios); }
+.badge--beta { background: #287b6b; }
 .card__thumb .star {
   position: absolute; top: 12px; right: 12px; background: var(--accent); color:#fff;
   font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px;
@@ -209,6 +213,8 @@ h2.section-title { font-size: clamp(24px, 4vw, 34px); margin: 0 0 8px; letter-sp
 .t-tabikake { background: linear-gradient(150deg,#d6e2f7,#b0c6ee); }
 .t-okite { background: linear-gradient(150deg,#e2d6f7,#c3aef0); }
 .t-hibi { background: linear-gradient(150deg,#f7ecd0,#eed7a2); }
+.t-sobani { background: linear-gradient(150deg,#dceee8,#a9d4c7); }
+.t-egatari { background: linear-gradient(150deg,#fff0c7,#e8c985); }
 
 .card__body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card__title { font-size: 18px; font-weight: 800; margin: 0; }
@@ -225,6 +231,24 @@ h2.section-title { font-size: clamp(24px, 4vw, 34px); margin: 0 0 8px; letter-sp
 }
 .card__links a:hover { text-decoration: underline; }
 .card__links a.muted { color: var(--ink-soft); }
+.card__links .store-link {
+  display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px;
+  background: var(--ink); color: var(--paper); text-decoration: none;
+}
+.coming-soon { font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+
+/* ---------- Webサイト（公開物が増えるまでの空状態） ---------- */
+.websites-section { background: color-mix(in srgb, var(--paper) 90%, transparent); }
+.empty-state {
+  display: flex; align-items: center; gap: 18px; padding: 26px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: var(--radius); background: color-mix(in srgb, var(--card) 80%, transparent);
+}
+.empty-state__mark {
+  display: grid; place-items: center; flex: 0 0 48px; height: 48px; border-radius: 50%;
+  background: var(--accent-bg); color: var(--accent-ink); font-size: 26px;
+}
+.empty-state p { margin: 3px 0 0; color: var(--ink-soft); }
 
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }

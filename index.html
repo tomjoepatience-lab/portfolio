@@ -13,8 +13,9 @@
   <nav class="nav">
     <a class="nav__brand" href="#top">tomjo<span style="color:var(--accent)">.</span></a>
     <div class="nav__links">
-      <a href="#products">プロダクト</a>
-      <a href="#works">つくったもの</a>
+      <a href="#products">Web SaaS</a>
+      <a href="#apps">iOSアプリ</a>
+      <a href="#websites">Webサイト</a>
       <a href="making-of-maneko.html">制作記</a>
       <a href="#about">About</a>
       <a href="https://github.com/tomjoepatience-lab" target="_blank" rel="noopener">GitHub</a>
@@ -27,8 +28,8 @@
       <div>
         <h1 class="hero__title">“あったらいいな” を、<br /><span class="hl">動くもの</span>にする。</h1>
         <p class="hero__lead">
-          現場で本当に使われている受付・育成のWebアプリから、
-          3Dキャラと暮らす家計簿、毎日使う iOS アプリまで。企画から実装・運用まで一人で作っています。
+          現場で動くWeb SaaSから、暮らしを少し良くするiOSアプリまで。
+          小さな違和感を見つけ、企画・実装・運用まで一人で形にしています。
         </p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#products">🚀 プロダクトを見る</a>
@@ -46,9 +47,9 @@
   <!-- ============ PRODUCTS（宣伝・本命） ============ -->
   <section id="products">
     <div class="wrap">
-      <p class="eyebrow reveal">Products</p>
-      <h2 class="section-title reveal">プロダクト</h2>
-      <p class="section-lead reveal">実際に現場で毎日動いているWebアプリです。導入・お試しのご相談はお気軽にどうぞ。</p>
+      <p class="eyebrow reveal">Web SaaS</p>
+      <h2 class="section-title reveal">現場を前に進めるWeb SaaS</h2>
+      <p class="section-lead reveal">日々の仕事から生まれた課題を、実際に使える仕組みに。WelcomyとNurtureは本番環境で稼働しています。</p>
 
       <div class="products">
 
@@ -127,17 +128,11 @@
   </section>
 
   <!-- ============ WORKS ============ -->
-  <section id="works" class="section-alt">
+  <section id="apps" class="section-alt">
     <div class="wrap">
-      <p class="eyebrow reveal">Works</p>
-      <h2 class="section-title reveal">つくったもの</h2>
-      <p class="section-lead reveal">「自分が毎日使いたい」から生まれた個人開発。</p>
-
-      <div class="filters" role="tablist">
-        <button class="filter is-active" data-filter="all">すべて</button>
-        <button class="filter" data-filter="web">🌐 Web</button>
-        <button class="filter" data-filter="ios">📱 iOS</button>
-      </div>
+      <p class="eyebrow reveal">iOS Apps</p>
+      <h2 class="section-title reveal">毎日に寄り添うiOSアプリ</h2>
+      <p class="section-lead reveal">お金、旅、外出、ケア、コミュニケーション。身近な困りごとから生まれたアプリです。</p>
 
       <div class="grid" id="grid">
 
@@ -153,7 +148,7 @@
             <p class="card__desc">支出・収入を記録し、目標へ貯金すると3Dの街とマネコが育つ家計簿。レシート読取、レポート、複数家計簿、夫婦・家族共有、親子のおこづかい管理に対応。</p>
             <div class="card__links">
               <a href="making-of-maneko.html">制作記 →</a>
-              <a class="muted" href="https://apps.apple.com/app/id6793989724" target="_blank" rel="noopener">App Store</a>
+              <a class="store-link" href="https://apps.apple.com/app/id6793989724" target="_blank" rel="noopener" aria-label="マネコ家計簿をApp Storeで見る">App Storeで入手 ↗</a>
               <a class="muted" href="https://www.maneko-app.com" target="_blank" rel="noopener">Web版</a>
               <a class="muted" href="https://github.com/tomjoepatience-lab/tabiwari" target="_blank" rel="noopener">GitHub</a>
             </div>
@@ -165,24 +160,12 @@
           <figure class="card__thumb t-tabikake media">
             <div class="media__fallback">✈️</div>
             <img class="media__img" src="assets/tabikake.jpg" alt="旅の支出を写真と地図で残すタビカケ" loading="lazy" />
-            <span class="badge badge--ios">iOS</span>
+            <span class="badge badge--beta">BETA</span>
           </figure>
           <div class="card__body">
             <h3 class="card__title">タビカケ</h3>
-            <p class="card__desc">1支出 = 1ピン（写真＋場所＋金額）。旅行やデート単位で「何にいくら使ったか」を写真つきで振り返る思い出×家計簿。TestFlight配信済み。</p>
-          </div>
-        </article>
-
-        <!-- 起きて -->
-        <article class="card reveal" data-cat="ios">
-          <figure class="card__thumb t-okite media">
-            <div class="media__fallback">⏰</div>
-            <img class="media__img" src="assets/okite.jpg" alt="枕元で鳴る本物の目覚まし 起きて" loading="lazy" />
-            <span class="badge badge--ios">iOS</span>
-          </figure>
-          <div class="card__body">
-            <h3 class="card__title">起きて</h3>
-            <p class="card__desc">マナーモード・集中モードを貫通して鳴る本物の目覚まし。iOS 26 の AlarmKit を使用。他アプリからURLスキームで一括セットできる連携口つき。</p>
+            <p class="card__desc">旅先で使ったお金を、写真・場所・金額の1ピンとして記録。帰ってから、思い出と支出を同じ地図で振り返れる旅の記録アプリです。</p>
+            <div class="card__links"><span class="coming-soon">TestFlightリンク準備中</span></div>
           </div>
         </article>
 
@@ -196,22 +179,47 @@
           <div class="card__body">
             <h3 class="card__title">いってきます</h3>
             <p class="card__desc">家を出る前の忘れ物を防ぐアプリ。持ち物と出発時刻を声で入力し、予定・天気・曜日から「今日の持ち物」を自動で組み立てて通知。</p>
+            <div class="card__links"><span class="coming-soon">App Storeリンク準備中</span></div>
           </div>
         </article>
 
-        <!-- Hibi -->
+        <!-- そばに -->
         <article class="card reveal" data-cat="ios">
-          <figure class="card__thumb t-toushi media">
-            <div class="media__fallback">📷</div>
-            <img class="media__img" src="assets/hibi.jpg" alt="似た写真を整理する Hibi" loading="lazy" />
-            <span class="badge badge--ios">iOS</span>
+          <figure class="card__thumb t-sobani media">
+            <div class="media__fallback">🌿</div>
+            <span class="badge badge--beta">BETA</span>
           </figure>
           <div class="card__body">
-            <h3 class="card__title">Hibi（日々）</h3>
-            <p class="card__desc">似た写真からベストショットを自動抽出し、残りを整理して容量を節約。判定はすべて端末内で完結（オンデバイスAI・写真は外に出ない）。</p>
+            <h3 class="card__title">そばに</h3>
+            <p class="card__desc">体調や日々の様子を、疲れている日も30秒で残せるケア記録。診察や相談のときに、伝えたい経過を時系列で振り返れます。</p>
+            <div class="card__links"><span class="coming-soon">ベータ版リンク準備中</span></div>
           </div>
         </article>
 
+        <!-- えがたり -->
+        <article class="card reveal" data-cat="ios">
+          <figure class="card__thumb t-egatari media">
+            <div class="media__fallback">🧩</div>
+            <span class="badge badge--beta">BETA</span>
+          </figure>
+          <div class="card__body">
+            <h3 class="card__title">えがたり</h3>
+            <p class="card__desc">絵カードを選ぶと、AIが伝えたいことを文章にして読み上げるコミュニケーション支援アプリ。言葉にする難しさを、絵から一緒にほどきます。</p>
+            <div class="card__links"><span class="coming-soon">ベータ版リンク準備中</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="websites" class="websites-section">
+    <div class="wrap">
+      <p class="eyebrow reveal">Websites</p>
+      <h2 class="section-title reveal">Webサイト</h2>
+      <div class="empty-state reveal">
+        <span class="empty-state__mark">＋</span>
+        <div><strong>これから追加していきます。</strong><p>公開したWebサイトを、ここにまとめる予定です。</p></div>
       </div>
     </div>
   </section>
