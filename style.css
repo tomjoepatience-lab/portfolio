@@ -215,6 +215,8 @@ h2.section-title { font-size: clamp(24px, 4vw, 34px); margin: 0 0 8px; letter-sp
 .t-hibi { background: linear-gradient(150deg,#f7ecd0,#eed7a2); }
 .t-sobani { background: linear-gradient(150deg,#dceee8,#a9d4c7); }
 .t-egatari { background: linear-gradient(150deg,#fff0c7,#e8c985); }
+.app-thumb--maneko { object-position: 50% 76%; }
+.app-thumb--ittekimasu { object-position: 50% 15%; }
 
 .card__body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card__title { font-size: 18px; font-weight: 800; margin: 0; }
